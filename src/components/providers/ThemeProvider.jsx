@@ -1,5 +1,5 @@
 // src/components/providers/ThemeProvider.jsx
-"use client";
+"use client"; // <-- TAMBAHKAN BARIS INI DI PALING ATAS
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 

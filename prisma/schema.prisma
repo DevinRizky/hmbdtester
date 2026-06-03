@@ -1,0 +1,107 @@
+datasource db {
+  provider = "postgresql" // atau "mysql" tergantung database yang kamu pakai
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js" // pastikan ini js ya, kemarin sempat typo client-client
+}
+
+// ─── 1. ENTITAS KABINET & FUNGSIONARIS ───
+model Fungsionaris {
+  id        String   @id @default(uuid())
+  nama      String
+  nim       String   @unique
+  jabatan   String   // Contoh: "Presiden Mahasiswa", "Ketua Divisi PDD"
+  kementerian String // Contoh: "Inti", "Kominfo", "Kestari", "Adkesma"
+  fotoUrl   String   // Link foto pengurus (dari Cloudinary / Supabase Storage)
+  periode   String   @default("2026")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── 2. ENTITAS BERITA & INSIGHT (DIPISAH BERDASARKAN KATEGORI) ───
+model Artikel {
+  id          String   @id @default(uuid())
+  slug        String   @unique // Contoh: "pembukaan-bdv-5-0-telkom"
+  judul       String
+  konten      String   @db.Text
+  bannerUrl   String   // Foto sampul artikel
+  kategori    String   // "BERITA" atau "INSIGHT"
+  penulis     String   @default("Humas HMBD")
+  views       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── 3. ENTITAS KEGIATAN / PROGRAM KERJA ───
+model Kegiatan {
+  id          String   @id @default(uuid())
+  namaProker  String
+  deskripsi   String   @db.Text
+  tanggal     DateTime // Waktu pelaksanaan proker
+  tempat      String   // Contoh: "Gedung DC Telkom Purwokerto" / "Zoom"
+  status      String   // "AKAN_DATANG", "BERJALAN", "SELESAI"
+  bannerUrl   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── 4. ENTITAS REKRUTMEN (OPEN RECRUITMENT) ───
+model OprecEvent {
+  id          String      @id @default(uuid())
+  slug        String      @unique // Contoh: "panitia-bdv-5-0"
+  title       String      // Contoh: "Rekrutmen Panitia BDV 5.0"
+  status      String      // "DIBUKA", "SEGERA", "DITUTUP"
+  closingDate DateTime
+  deskripsi   String      @db.Text
+  pendaftar   Pendaftar[] // Relasi ke data mahasiswa yang daftar
+  createdAt   DateTime    @default(now())
+}
+
+// ─── 5. ENTITAS MAHASISWA YANG DAFTAR REKRUTMEN ───
+model Pendaftar {
+  id            String     @id @default(uuid())
+  eventId       String     // Menghubungkan ke oprec mana dia daftar
+  event         OprecEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  nama          String
+  nim           String
+  kelas         String
+  divisiPilihan String
+  linkBerkas    String     // Tautan CV / Portofolio
+  statusSeleksi String     @default("PENDING") // "PENDING", "LOLOS", "DITOLAK"
+  createdAt     DateTime   @default(now())
+}
+
+// ─── 6. ENTITAS ASPIRASI MAHASISWA (FORM ANONYMOUS/PUBLIC) ───
+model Aspirasi {
+  id        String   @id @default(uuid())
+  kategori  String   // "FASILITAS", "AKADEMIK", "SISTEM_PRODI", "LAINNYA"
+  isi       String   @db.Text
+  status    String   @default("TERIMA") // "TERIMA", "PROSES", "SELESAI"
+  createdAt DateTime @default(now())
+}
+
+// ─── 7. ENTITAS KONTEN BERANDA (SINGLE ROW MANAGEMENT) ───
+model KontenBeranda {
+  id              String   @id @default("main-config") // Di-lock id-nya agar cuma ada 1 baris data
+  videoUrl        String   // Link video profil HMBD
+  visi            String   @db.Text
+  misi            String   @db.Text
+  namaKahim       String
+  fotoKahim       String
+  namaWakahim     String
+  fotoWakahim     String
+  namaPembimbing  String
+  fotoPembimbing  String
+  updatedAt       DateTime @updatedAt
+}
+
+// ─── 8. ENTITAS GALERI FOTO (DOKUMENTASI KEGIATAN) ───
+model Galeri {
+  id        String   @id @default(uuid())
+  caption   String
+  imageUrl  String   // URL foto dari Cloudinary / Supabase Storage
+  createdAt DateTime @default(now())
+}

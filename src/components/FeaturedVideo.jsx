@@ -28,7 +28,7 @@ export default function FeaturedVideo() {
         <div className="relative overflow-hidden border border-hairline bg-surface-soft aspect-video shadow-2xl group">
           <video
             ref={videoRef}
-            src="/video-profil-hmbd.mp4" // <--- SILAKAN SESUAIKAN NAMA FILE DI FOLDER PUBLIC
+            src="/ARADHANA-COMPANY-PROFILE.mp4" // <--- SILAKAN SESUAIKAN NAMA FILE DI FOLDER PUBLIC
             controls={isPlaying} // Kontrol bawaan browser baru muncul setelah tombol play diklik
             preload="metadata" // Hanya mengunduh data dasar (durasi/resolusi), menghemat bandwidth!
             className="h-full w-full object-cover transition duration-300"

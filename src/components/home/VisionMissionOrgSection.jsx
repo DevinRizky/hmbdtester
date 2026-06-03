@@ -1,44 +1,43 @@
 "use client";
 
-import Image from "next/image";
+// 🎯 Ditambahkan props: visi, misi, kahim, wakahim
+export default function VisionMissionOrgSection({ visi, misi, kahim, wakahim }) {
+  // Data fallback jika database belum terisi
+  const defaultMisi = [
+    "Membangun internal organisasi yang solid, harmonis, dan berasaskan kekeluargaan demi kelancaran roda kerja himpunan.",
+    "Menyelenggarakan program kerja yang focus pada peningkatan kompetensi akademik dan non-akademik di bidang bisnis digital.",
+    "Mengoptimalkan sistem advokasi dan penyaluran aspirasi yang responsif, solutif, dan transparan bagi seluruh mahasiswa.",
+  ];
 
-export default function VisionMissionOrgSection() {
   return (
     <section id="visi-misi" className="bg-canvas py-16 lg:py-24 border-t border-hairline/60">
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
-        {/* ================= BARIS 1: TEKS VISI & MISI ================= */}
+        {/* VISI & MISI */}
         <div className="grid gap-12 lg:grid-cols-2">
-          {/* Blok Visi */}
           <div className="border border-hairline bg-surface-soft p-6 sm:p-8">
             <span className="text-[11px] font-bold uppercase tracking-[2px] text-m-blue-dark dark:text-m-blue-light">Arah Juang</span>
             <h2 className="mt-2 text-xl font-extrabold uppercase tracking-tight text-on-dark sm:text-2xl">Visi HMBD</h2>
             <div className="h-0.5 w-12 bg-m-blue-dark mt-3" />
-            <p className="mt-5 text-sm sm:text-base font-light text-body text-justify leading-relaxed">
-              Menjadikan Himpunan Mahasiswa Bisnis Digital sebagai lembaga yang adaptif, inovatif, dan inklusif dalam menciptakan sinergi global, serta menjadi wadah pengembangan potensi mahasiswa yang berintegritas tinggi di bidang ekonomi
-              digital.
-            </p>
+            {/* 🎯 Menggunakan props visi */}
+            <p className="mt-5 text-sm sm:text-base font-light text-body text-justify leading-relaxed">{visi || "Menjadikan Himpunan Mahasiswa Bisnis Digital sebagai lembaga yang adaptif, inovatif, dan inklusif..."}</p>
           </div>
 
-          {/* Blok Misi */}
           <div className="border border-hairline bg-surface-soft p-6 sm:p-8">
             <span className="text-[11px] font-bold uppercase tracking-[2px] text-m-red">Langkah Nyata</span>
             <h2 className="mt-2 text-xl font-extrabold uppercase tracking-tight text-on-dark sm:text-2xl">Misi HMBD</h2>
             <div className="h-0.5 w-12 bg-m-red mt-3" />
             <ul className="mt-5 space-y-3 text-sm sm:text-base font-light text-body text-justify list-none">
-              <li>
-                <strong className="text-on-dark font-medium">1.</strong> Membangun internal organisasi yang solid, harmonis, dan berasaskan kekeluargaan demi kelancaran roda kerja himpunan.
-              </li>
-              <li>
-                <strong className="text-on-dark font-medium">2.</strong> Menyelenggarakan program kerja yang fokus pada peningkatan kompetensi akademik dan non-akademik di bidang bisnis digital.
-              </li>
-              <li>
-                <strong className="text-on-dark font-medium">3.</strong> Mengoptimalkan sistem advokasi dan penyaluran aspirasi yang responsif, solutif, dan transparan bagi seluruh mahasiswa.
-              </li>
+              {/* 🎯 Render array misi secara dinamis */}
+              {(misi && misi.length > 0 ? misi : defaultMisi).map((item, index) => (
+                <li key={index}>
+                  <strong className="text-on-dark font-medium">{index + 1}.</strong> {item}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        {/* ================= BARIS 2: PROFIL KAHIM & WAKAHIM ================= */}
+        {/* PROFIL KAHIM & WAKAHIM */}
         <div className="mt-16 lg:mt-24">
           <div className="text-center mb-10">
             <span className="text-[11px] font-bold uppercase tracking-[2px] text-muted">Struktur Pimpinan</span>
@@ -47,21 +46,21 @@ export default function VisionMissionOrgSection() {
           </div>
 
           <div className="mx-auto max-w-4xl grid gap-8 sm:grid-cols-2 justify-center">
-            {/* KARTU KETUA HIMPUNAN (KAHIM) */}
+            {/* KARTU KETUA HIMPUNAN */}
             <div className="border border-hairline bg-surface-soft p-4 flex flex-col items-center text-center group">
               <div className="relative aspect-[3/4] w-full max-w-[240px] border border-hairline bg-black overflow-hidden shadow-md">
-                <img src="/Nabiel.jpg" alt="Foto Ketua Himpunan" className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]" loading="lazy" />
+                <img src={kahim?.foto || "/Nabiel.jpg"} alt="Foto Ketua Himpunan" className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]" loading="lazy" />
               </div>
-              <h4 className="mt-4 text-base font-bold uppercase tracking-tight text-on-dark">Nabiel Syafiq Mujizan A</h4>
+              <h4 className="mt-4 text-base font-bold uppercase tracking-tight text-on-dark">{kahim?.nama || "Nabiel Syafiq Mujizan A"}</h4>
               <p className="text-[11px] font-medium uppercase tracking-[1px] text-m-blue-dark dark:text-m-blue-light mt-1">Ketua Himpunan</p>
             </div>
 
-            {/* KARTU WAKIL KETUA HIMPUNAN (WAKAHIM) */}
+            {/* KARTU WAKIL KETUA HIMPUNAN */}
             <div className="border border-hairline bg-surface-soft p-4 flex flex-col items-center text-center group">
               <div className="relative aspect-[3/4] w-full max-w-[240px] border border-hairline bg-black overflow-hidden shadow-md">
-                <img src="/Farrel.jpg" alt="Foto Wakil Ketua Himpunan" className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]" loading="lazy" />
+                <img src={wakahim?.foto || "/Farrel.jpg"} alt="Foto Wakil Ketua Himpunan" className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]" loading="lazy" />
               </div>
-              <h4 className="mt-4 text-base font-bold uppercase tracking-tight text-on-dark">Ananda Farrel Tyass Shidiq</h4>
+              <h4 className="mt-4 text-base font-bold uppercase tracking-tight text-on-dark">{wakahim?.nama || "Ananda Farrel Tyass Shidiq"}</h4>
               <p className="text-[11px] font-medium uppercase tracking-[1px] text-m-red mt-1">Wakil Ketua Himpunan</p>
             </div>
           </div>

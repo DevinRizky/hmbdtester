@@ -10,8 +10,9 @@ export default function KabinetSection() {
         <div className="border border-hairline bg-surface-soft p-6 sm:p-10 lg:p-12 grid gap-8 lg:grid-cols-12 items-center">
           {/* KOLOM KIRI: Video Animasi Logo Kabinet */}
           <div className="lg:col-span-5 flex justify-center w-full">
-            <div className="relative aspect-square w-full max-w-[360px] border border-hairline bg-black overflow-hidden flex items-center justify-center shadow-md">
-              <video src="/AnimasiKabinet.mp4" autoPlay loop muted playsInline className="h-full w-full object-cover" />
+            <div className="relative aspect-square w-full max-w-[360px] border border-hairline bg-black p-4 overflow-hidden flex items-center justify-center shadow-md">
+              {/* FIX: Ubah object-cover menjadi object-contain agar video utuh 100% tidak terpotong zoom */}
+              <video src="/AnimasiKabinet.mp4" autoPlay loop muted playsInline className="h-full w-full object-contain" />
             </div>
           </div>
 

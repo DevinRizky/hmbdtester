@@ -8,9 +8,12 @@ import MobileNav from "./MobileNav";
 import MStripe from "./MStripe";
 import ThemeToggle from "./ThemeToggle";
 
+// SUSUNAN NAVIGASI BARU: Rapi, Terstruktur, dan Terbagi Jelas
 const NAV = [
   { href: "/", label: "Beranda" },
   { href: "/berita", label: "Berita" },
+  { href: "/insight", label: "Insight" },
+  { href: "/kabinet", label: "Kabinet" },
   { href: "/kegiatan", label: "Kegiatan" },
   { href: "/rekrutmen", label: "Rekrutmen" },
   { href: "/aspirasi", label: "Aspirasi" },
@@ -44,21 +47,24 @@ export default function Navbar() {
     };
   }, [open]);
 
-  // Solusi Sempurna: Pengganti useEffect([pathname]) yang memicu error linter.
-  // Kita buat fungsi penutup menu mandiri yang dipicu langsung saat link diklik!
   const handleLinkClick = () => {
     setOpen(false);
   };
 
   return (
     <>
-      {/* Menggunakan penulisan kelas rekomendasi linter: z-99999! */}
       <header className="sticky top-0 inset-x-0 z-99999! isolate bg-canvas/95 backdrop-blur-md border-b border-hairline/80 transition-shadow duration-200">
         <MStripe />
         <div className="mx-auto flex h-16 max-w-360 items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 lg:px-10">
           <Link href="/" className="group flex min-h-11 min-w-0 shrink items-center gap-2 active:opacity-95 sm:gap-3" onClick={handleLinkClick}>
-            <Image src="/logohmbd.jpg" alt="Logo HMBD" width={44} height={44} className="h-10 w-10 object-contain" priority />
-            <Image src="/logoaradhana.jpg" alt="Logo Kabinet Aradhana" width={44} height={44} className="hidden h-10 w-10 object-contain sm:block" />
+            {/* LOGO HMBD */}
+            <Image src="/hitam-hmbd.png" alt="Logo HMBD" width={48} height={48} className="h-12 w-12 object-contain block dark:hidden" priority />
+            <Image src="/putih-hmbd.png" alt="Logo HMBD" width={48} height={48} className="h-12 w-12 object-contain hidden dark:block" priority />
+
+            {/* LOGO KABINET ARADHANA */}
+            <Image src="/hitam-aradhana.png" alt="Logo Kabinet Aradhana" width={48} height={48} className="hidden h-12 w-12 object-contain sm:block dark:sm:hidden" />
+            <Image src="/putih-aradhana.png" alt="Logo Kabinet Aradhana" width={48} height={48} className="hidden h-12 w-12 object-contain dark:sm:block" />
+
             <span className="flex min-w-0 flex-col leading-tight">
               <span className="truncate text-[11px] font-bold uppercase tracking-[1.5px] text-on-dark">HMBD Purwokerto</span>
               <span className="truncate text-[10px] font-light uppercase tracking-[0.5px] text-muted">Kabinet Aradhana</span>
@@ -80,7 +86,6 @@ export default function Navbar() {
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <ThemeToggle />
 
-            {/* Menggunakan penulisan kelas rekomendasi linter: z-999999 dan translate-y-1.25 */}
             <button
               type="button"
               aria-expanded={open}
@@ -99,7 +104,6 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Hydration Guard aman */}
       {mounted && <MobileNav open={open} onClose={() => setOpen(false)} pathname={pathname} navItems={NAV} />}
     </>
   );
