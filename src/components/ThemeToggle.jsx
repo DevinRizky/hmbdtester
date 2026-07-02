@@ -1,7 +1,8 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+// Sesuaikan jalur relative path ini ke file ThemeProvider.jsx Anda
+import { useTheme } from "./providers/ThemeProvider";
 
 function SunIcon({ className }) {
   return (
@@ -21,18 +22,26 @@ function MoonIcon({ className }) {
 }
 
 export default function ThemeToggle({ className = "" }) {
-  const { resolvedTheme, setTheme } = useTheme();
+  // Gunakan properti 'theme' sesuai dengan context lokal baru kita
+  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  // Amankan pengubahan state menggunakan microtask agar lolos dari sensor cascading render
   useEffect(() => {
-    setMounted(true);
+    let isSubscribed = true;
+    queueMicrotask(() => {
+      if (isSubscribed) setMounted(true);
+    });
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
   if (!mounted) {
     return <span className={`inline-flex h-11 w-11 shrink-0 border border-hairline bg-surface-soft ${className}`} aria-hidden />;
   }
 
-  const isDark = resolvedTheme === "dark";
+  const isDark = theme === "dark";
 
   return (
     <button

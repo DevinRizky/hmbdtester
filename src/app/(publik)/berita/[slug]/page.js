@@ -3,6 +3,14 @@ import { DATA_BERITA } from "@/data/beritaData";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
+// Tambahkan fungsi ini agar Next.js tahu daftar slug apa saja yang akan dibuat menjadi HTML statis
+export async function generateStaticParams() {
+  // Mengambil semua data slug yang ada di file beritaData lokalmu
+  return DATA_BERITA.map((artikel) => ({
+    slug: artikel.slug,
+  }));
+}
+
 export async function generateMetadata({ params }) {
   // Mengantisipasi perubahan router asinkron Next.js terbaru
   const resolvedParams = await params;

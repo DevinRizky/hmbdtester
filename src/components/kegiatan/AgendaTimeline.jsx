@@ -1,56 +1,147 @@
+"use client"; // 1. Wajib tambahkan ini di baris paling pertama!
+
+import { useState } from "react"; // 2. Pastikan useState sudah di-import
+
 const AGENDA = [
+  // --- BULAN SEPTEMBER 2026 ---
   {
-    id: "a4",
-    name: "Rapat koordinasi program kerja Kabinet Aradhana",
-    date: "2026-05-08",
-    place: "Ruang rapat Gedung Utama Campus Purwokerto",
-    status: "Selesai",
-  },
-  {
-    id: "a1",
-    name: "Open recruitment relawan divisi dokumentasi multimedia",
-    date: "2026-05-25",
-    place: "Ruang Auditorium — Telkom University Purwokerto",
+    id: "sept-01",
+    name: "DIGISTORE — DEPARTEMEN BNE",
+    date: "2026-09-01",
+    place: "Telkom University Purwokerto Todays, BISDIGVOLUTION 5.0, DIGIFEST, MEDIA SOSIAL (Rutinitas)",
     status: "Mendatang",
+    desc: "Kegiatan penjualan dan pemasaran produk dalam berbagai acara yang diselenggarakan oleh BNE HMBD untuk meningkatkan pendapatan organisasi sekaligus sarana mengembangkan keterampilan pemasaran, komunikasi, dan pengelolaan usaha.",
   },
   {
-    id: "a2",
-    name: "Kuliah tamu: strategi industri digital bagi startup kampus",
-    date: "2026-06-02",
-    place: "Aula Rekayasa Industri Purwokerto",
+    id: "sept-02",
+    name: "BISDIGVOLUTION 5.0 — DEPARTEMEN INTERNAL",
+    date: "2026-09-12",
+    place: "Telkom University Purwokerto",
     status: "Mendatang",
+    desc: "Kegiatan orientasi studi dan pengenalan kampus kepada mahasiswa baru. Langkah awal bagi mahasiswa untuk mengenal lingkungan kampus baik dari segi akademik maupun non-akademik.",
   },
   {
-    id: "a5",
-    name: "Briefing penyusunan dokumentasi seminar nasional Bisnis Digital",
-    date: "2026-04-18",
-    place: "Online — kanal komunikasi kabinet internal",
-    status: "Selesai",
-  },
-  {
-    id: "a3",
-    name: "Studi rutin struktur kepengurusan masa bakti baru",
-    date: "2026-06-18",
-    place: "Ruang komunikasi fakultas",
+    id: "sept-03",
+    name: "BISZPHERE — DEPARTEMEN BNE",
+    date: "2026-09-12",
+    place: "Telkom University Purwokerto",
     status: "Mendatang",
+    desc: "Kegiatan penjualan dan pemasaran produk dalam berbagai acara yang diselenggarakan oleh BNE HMBD untuk melatih pengelolaan stand penjualan serta pelayanan konsumen.",
   },
   {
-    id: "a6",
-    name: "Workshop desain komunikasi kampanye publikasi HMBD",
-    date: "2026-04-06",
-    place: "Lab kolaboratif prodi Bisnis Digital",
-    status: "Selesai",
+    id: "sept-04",
+    name: "MAKRAB ANGKATAN 26 — DEPARTEMEN INTERNAL",
+    date: "2026-09-19", // Diambil dari tanggal mulai pelaksanaan (19-20 September)
+    place: "Twin Palm Villa",
+    status: "Mendatang",
+    desc: "Membangun solidaritas antar mahasiswa serta membentuk karakter pemimpin yang adaptif melalui rangkaian Latihan Dasar Kepemimpinan (LDK), kerja sama tim, dan problem solving.",
+  },
+  {
+    id: "sept-05",
+    name: "DIGISPORT — DEPARTEMEN HR",
+    date: "2026-09-25", // Diambil dari tanggal mulai pelaksanaan (25-27 September)
+    place: "Telkom University Purwokerto",
+    status: "Mendatang",
+    desc: "Mewadahi, mengembangkan, dan mengoptimalkan potensi mahasiswa di berbagai bidang non-akademik agar mampu mengenali potensi diri dan meningkatkan kepercayaan diri.",
+  },
+  {
+    id: "sept-06",
+    name: "WASMA — DEPARTEMEN ADVO",
+    date: "2026-09-30", // Tanggal placeholder akhir bulan karena belum tersedia resmi
+    place: "Belum Ditentukan",
+    status: "Mendatang",
+    desc: "Program kerja Departemen Advocacy. (Detail jadwal pelaksanaan resmi akan segera disesuaikan).",
+  },
+
+  // --- BULAN OKTOBER 2026 ---
+  {
+    id: "okt-01",
+    name: "FUN COLLABORATE — DEPARTEMEN EXTERNAL",
+    date: "2026-10-03",
+    place: "Universitas Muhammadiyah Purwokerto",
+    status: "Mendatang",
+    desc: "Kegiatan bounding antar himpunan mahasiswa bisnis digital dengan himpunan di luar kampus untuk membangun networking yang dikemas dengan penuh keseruan.",
+  },
+  {
+    id: "okt-02",
+    name: "STUDI BANDING HMBD X HMTI — DEPARTEMEN EXTERNAL",
+    date: "2026-10-31",
+    place: "Telkom University Purwokerto",
+    status: "Mendatang",
+    desc: "Mempererat ikatan antara HIMA Bisnis Digital dengan HIMA Teknik Industri Telkom University Purwokerto guna bertukar pikiran mengenai struktur organisasi, proker, dan inovasi.",
+  },
+
+  // --- BULAN NOVEMBER 2026 ---
+  {
+    id: "nov-01",
+    name: "DIGISTORE — DEPARTEMEN BNE",
+    date: "2026-11-01", // Placeholder awal bulan karena belum ditentukan resmi
+    place: "Belum Ditentukan",
+    status: "Mendatang",
+    desc: "Kegiatan penjualan dan pemasaran produk berkelanjutan oleh Departemen Business & Entrepreneurship HMBD.",
+  },
+  {
+    id: "nov-02",
+    name: "DIGIFEST 4.0 — DEPARTEMEN RNE",
+    date: "2026-11-15",
+    place: "Belum Ditentukan",
+    status: "Mendatang",
+    desc: "Festival tahunan bertema 'Modern, cinematic, energetic, ethnic festival' yang memadukan kompetisi, seminar, dan pameran UMKM agar adaptif di era digital.",
+  },
+
+  // --- BULAN DESEMBER 2026 ---
+  {
+    id: "des-01",
+    name: "DIALPRO (DIALOG PRODI) — DEPARTEMEN ADVO",
+    date: "2026-12-01",
+    place: "Telkom University Purwokerto",
+    status: "Mendatang",
+    desc: "Forum diskusi antara mahasiswa dan program studi untuk menyampaikan aspirasi, membahas isu akademik/non-akademik, serta mencari solusi bersama secara terbuka.",
+  },
+  {
+    id: "des-02",
+    name: "PEMIRA — KESELURUHAN DEPARTEMEN",
+    date: "2026-12-01",
+    place: "Telkom University Purwokerto",
+    status: "Mendatang",
+    desc: "Pemilihan pimpinan baru untuk regenerasi tongkat kepengurusan HMBD di periode selanjutnya.",
+  },
+  {
+    id: "des-03",
+    name: "MUSYAWARAH BESAR (MUBES) — KESELURUHAN DEPARTEMEN",
+    date: "2026-12-21",
+    place: "Telkom University Purwokerto",
+    status: "Mendatang",
+    desc: "Musyawarah hasil pertanggungjawaban kerja satu periode Himpunan yang akan berakhir dan pembentukan amanah kepemimpinan baru.",
+  },
+  {
+    id: "des-04",
+    name: "SERTIJAB (SERAH TERIMA JABATAN) — KESELURUHAN DEPARTEMEN",
+    date: "2026-12-28", // Placeholder akhir bulan karena belum ditentukan resmi
+    place: "Belum Ditentukan",
+    status: "Mendatang",
+    desc: "Pelantikan resmi fungsionaris dan anggota baru untuk periode kepengurusan yang melanjutkan.",
   },
 ];
 
 /** Mendatang dulu (+ tanggal terdekat), lalu Selesai (tanggal terbaru). */
 function sortedAgenda() {
-  const upcoming = AGENDA.filter((x) => x.status === "Mendatang").sort(
-    (a, b) => new Date(a.date) - new Date(b.date),
-  );
-  const done = AGENDA.filter((x) => x.status === "Selesai").sort(
-    (a, b) => new Date(b.date) - new Date(a.date),
-  );
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // 1. Ambil agenda mendatang dan urutkan dari tanggal terdekat
+  const upcoming = AGENDA.filter((x) => {
+    const itemDate = new Date(`${x.date}T12:00:00`);
+    return itemDate >= today;
+  }).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  // 2. Ambil agenda masa lalu (jika ada) dan urutkan dari yang terbaru selesai
+  const done = AGENDA.filter((x) => {
+    const itemDate = new Date(`${x.date}T12:00:00`);
+    return itemDate < today;
+  }).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  // 3. GABUNGKAN KEMBALI MENJADI SATU ARRAY TUNGGAL [...upcoming, ...done]
   return [...upcoming, ...done];
 }
 
@@ -85,67 +176,78 @@ function daysFromToday(iso) {
 }
 
 export default function AgendaTimeline() {
-  const timeline = sortedAgenda();
+  const timeline = sortedAgenda(); // atau fungsi sortir dinamis kamu
+
+  // State untuk menyimpan ID agenda yang sedang di-expand (null artinya semua tertutup)
+  const [expandedId, setExpandedId] = useState(null);
+
+  const toggleExpand = (id) => {
+    // Jika yang diklik adalah yang sedang terbuka, maka tutup (set null). Jika bukan, buka yang baru.
+    setExpandedId(expandedId === id ? null : id);
+  };
 
   return (
     <section aria-labelledby="agenda-heading">
-      <h2
-        id="agenda-heading"
-        className="text-xl font-bold uppercase tracking-tight text-on-dark lg:text-[32px] lg:leading-[1.15]"
-      >
+      <h2 id="agenda-heading" className="text-xl font-bold uppercase tracking-tight text-on-dark lg:text-[32px] lg:leading-[1.15]">
         Kalender kegiatan
       </h2>
-      <p className="mt-4 max-w-2xl text-base font-light text-body">
-        Timeline agenda — daftar mendatang terurut sesuai tanggal terdekat,
-        kemudian arsip yang telah selesai.
-      </p>
 
       <ol className="mt-12 grid gap-px border border-hairline bg-hairline">
         {timeline.map((item, i) => {
           const delta = daysFromToday(item.date);
+          const isExpanded = expandedId === item.id;
+
           return (
-            <li
-              key={item.id}
-              className="group relative border border-hairline bg-surface-soft p-6 transition duration-200 ease-out hover:bg-surface-card hover:shadow-[inset_0_0_0_1px_rgba(28,105,212,0.18)] motion-reduce:transition-none sm:p-8"
-            >
-              <span
-                className="absolute inset-y-0 left-0 w-1 bg-linear-to-b from-m-blue-light via-m-blue-dark to-m-red opacity-60 transition duration-200 group-hover:opacity-100"
-                aria-hidden
-              />
-              <div className="flex gap-6 pl-6 sm:pl-8">
-                <span className="hidden w-10 shrink-0 pt-1 font-bold tabular-nums text-muted sm:block">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+            <li key={item.id} className="group relative border border-hairline bg-surface-soft transition duration-200 ease-out hover:bg-surface-card hover:shadow-[inset_0_0_0_1px_rgba(28,105,212,0.18)]">
+              {/* Tombol transparan pembungkus seluruh area kartu agar bisa diklik */}
+              <button onClick={() => toggleExpand(item.id)} className="w-full text-left p-6 sm:p-8 flex gap-6 pl-6 sm:pl-8 focus:outline-none focus:bg-surface-card" aria-expanded={isExpanded}>
+                {/* Aksen garis vertikal di kiri */}
+                <span className={`absolute inset-y-0 left-0 w-1 bg-linear-to-b from-m-blue-light via-m-blue-dark to-m-red opacity-60 transition duration-200 group-hover:opacity-100 ${isExpanded ? "opacity-100" : ""}`} aria-hidden />
+
+                <span className="hidden w-10 shrink-0 pt-1 font-bold tabular-nums text-muted sm:block">{String(i + 1).padStart(2, "0")}</span>
+
                 <div className="min-w-0 flex-1">
+                  {/* Metadata */}
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <time
-                      className="text-[13px] font-bold uppercase tracking-[1.5px] text-body-strong"
-                      dateTime={item.date}
-                    >
+                    <time className="text-[13px] font-bold uppercase tracking-[1.5px] text-body-strong" dateTime={item.date}>
                       {formatIdDate(item.date)}
                     </time>
-                    <span
-                      className={`border px-2 py-0.5 text-[11px] font-bold uppercase tracking-[1.5px] ${
-                        item.status === "Mendatang"
-                          ? "border-m-blue-dark/70 text-body-strong shadow-[inset_0_0_0_1px_rgba(28,105,212,0.12)] group-hover:shadow-[0_0_20px_rgba(28,105,212,0.16)] motion-reduce:group-hover:shadow-none"
-                          : "border-hairline-strong text-muted"
-                      }`}
-                    >
-                      {item.status}
-                    </span>
-                    <span className="text-[11px] font-light uppercase tracking-wide text-muted">
-                      {relativeDayLabel(delta, item.status)}
-                    </span>
+                    <span className={`border px-2 py-0.5 text-[11px] font-bold uppercase tracking-[1.5px] ${item.status === "Mendatang" ? "border-m-blue-dark/70 text-body-strong" : "border-hairline-strong text-muted"}`}>{item.status}</span>
+                    <span className="text-[11px] font-light uppercase tracking-wide text-muted">{relativeDayLabel(delta, item.status)}</span>
                   </div>
-                  <p className="mt-4 text-lg font-bold uppercase leading-snug tracking-tight text-on-dark sm:text-xl">
-                    {item.name}
-                  </p>
-                  <p className="mt-3 text-base font-light text-body">
-                    <span className="text-muted">Tempat · </span>
-                    {item.place}
-                  </p>
+
+                  {/* Judul Agenda + Indikator Panah */}
+                  <div className="mt-4 flex items-start justify-between gap-4">
+                    <p className="text-lg font-bold uppercase leading-snug tracking-tight text-on-dark sm:text-xl">{item.name}</p>
+                    {/* Ikon panah mini penunjuk interaksi (berputar saat expand) */}
+                    <svg
+                      className={`w-5 h-5 text-muted shrink-0 mt-1 transition-transform duration-300 motion-reduce:transition-none ${isExpanded ? "rotate-180 text-m-blue-light" : ""}`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+
+                  {/* =========================================================================
+              ANIMASI EXPAND / COLLAPSE (Menggunakan CSS Grid Row Hack)
+              ========================================================================= */}
+                  <div className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                    <div className="overflow-hidden">
+                      {/* Tempat Deskripsi Proker */}
+                      {item.desc && <p className="mt-4 text-sm font-light text-body leading-relaxed bg-surface-soft/50 p-3 border-l-2 border-hairline">{item.desc}</p>}
+
+                      {/* Lokasi dipindah ke dalam collapse agar rapi */}
+                      <p className="mt-3 text-base font-light text-body">
+                        <span className="text-muted">Tempat · </span>
+                        {item.place}
+                      </p>
+                    </div>
+                  </div>
+                  {/* ========================================================================= */}
                 </div>
-              </div>
+              </button>
             </li>
           );
         })}

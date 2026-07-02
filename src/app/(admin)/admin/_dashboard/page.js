@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { addKabinetMember, deleteKabinetMember } from "./actions";
 
 export default function AdminDashboardPage() {
   // UI State
@@ -13,6 +14,22 @@ export default function AdminDashboardPage() {
   const [inputVideo, setInputVideo] = useState("");
   const [inputVisi, setInputVisi] = useState("");
   const [inputMisi, setInputMisi] = useState("");
+
+  // ─── DATA KETUA & WAKIL ───
+  const [inputNamaKahim, setInputNamaKahim] = useState("");
+  const [inputFotoKahim, setInputFotoKahim] = useState(null);
+  const [inputNamaWakahim, setInputNamaWakahim] = useState("");
+  const [inputFotoWakahim, setInputFotoWakahim] = useState(null);
+
+  // ─── DATA DOSEN PEMBIMBING ───
+  const [inputDosen1Nama, setInputDosen1Nama] = useState("");
+  const [inputDosen1Keahlian, setInputDosen1Keahlian] = useState("");
+  const [inputDosen1NIP, setInputDosen1NIP] = useState("");
+  const [inputFotoDosen1, setInputFotoDosen1] = useState(null);
+  const [inputDosen2Nama, setInputDosen2Nama] = useState("");
+  const [inputDosen2Keahlian, setInputDosen2Keahlian] = useState("");
+  const [inputDosen2NIP, setInputDosen2NIP] = useState("");
+  const [inputFotoDosen2, setInputFotoDosen2] = useState(null);
 
   // ─── AGENDA/KEGIATAN DATA ───
   const [eventsCalendar, setEventsCalendar] = useState([]);
@@ -45,68 +62,30 @@ export default function AdminDashboardPage() {
         setIsLoading(true);
         setError(null);
 
-        // Fetch semua data secara parallel
-        const [berandaRes, agendaRes, galeriRes, publikasiRes, kabinetRes, rekrutmenRes, statsRes] = await Promise.all([
-          fetch("/api/beranda"),
-          fetch("/api/agenda"),
-          fetch("/api/galeri"),
-          fetch("/api/publikasi"),
-          fetch("/api/kabinet"),
-          fetch("/api/rekrutmen/daftar"),
-          fetch("/api/rekrutmen/stats"),
-        ]);
+        // TODO: Integrasi Supabase — fetch data asli nanti
+        // Sementara isi state dengan data kosong agar dashboard terbuka tanpa crash
 
-        if (!berandaRes.ok) throw new Error("Gagal mengambil data beranda");
-        if (!agendaRes.ok) throw new Error("Gagal mengambil data agenda");
-        if (!galeriRes.ok) throw new Error("Gagal mengambil data galeri");
-        if (!publikasiRes.ok) throw new Error("Gagal mengambil data publikasi");
-        if (!kabinetRes.ok) throw new Error("Gagal mengambil data kabinet");
-        if (!rekrutmenRes.ok) throw new Error("Gagal mengambil data rekrutmen");
-        if (!statsRes.ok) throw new Error("Gagal mengambil statistik rekrutmen");
+        setBerandaData({ videoUrl: "", visi: "", misi: "", namaKahim: "", namaWakahim: "", namaPembimbing: "" });
+        setInputVideo("");
+        setInputVisi("");
+        setInputMisi("");
+        setInputNamaKahim("");
+        setInputNamaWakahim("");
+        setInputDosen1Nama("");
+        setInputDosen1Keahlian("");
+        setInputDosen1NIP("");
+        setInputDosen2Nama("");
+        setInputDosen2Keahlian("");
+        setInputDosen2NIP("");
 
-        const berandaData = await berandaRes.json();
-        const agendaData = await agendaRes.json();
-        const galeriData = await galeriRes.json();
-        const publikasiData = await publikasiRes.json();
-        const kabinetData = await kabinetRes.json();
-        const rekrutmenData = await rekrutmenRes.json();
-        const statsData = await statsRes.json();
-
-        // Set semua state
-        if (berandaData.success && berandaData.data) {
-          setBerandaData(berandaData.data);
-          setInputVideo(berandaData.data.videoUrl);
-          setInputVisi(berandaData.data.visi);
-          setInputMisi(berandaData.data.misi);
-        }
-
-        if (agendaData.success && Array.isArray(agendaData.data)) {
-          setEventsCalendar(agendaData.data);
-        }
-
-        if (galeriData.success && Array.isArray(galeriData.data)) {
-          setEventGallery(galeriData.data);
-        }
-
-        if (publikasiData.success && Array.isArray(publikasiData.data)) {
-          setArticles(publikasiData.data);
-        }
-
-        if (kabinetData.success && Array.isArray(kabinetData.data)) {
-          setKabinetMembers(kabinetData.data);
-        }
-
-        if (rekrutmenData.success && Array.isArray(rekrutmenData.data)) {
-          setApplicants(rekrutmenData.data);
-        }
-
-        if (statsData.success && statsData.data) {
-          setRecruitmentStats(statsData.data);
-        }
+        setEventsCalendar([]);
+        setEventGallery([]);
+        setArticles([]);
+        setKabinetMembers([]);
+        setApplicants([]);
+        setRecruitmentStats({ total: 0, pending: 0, lolos: 0, ditolak: 0 });
       } catch (err) {
-        console.error("Error fetching data:", err);
-        setError(err.message);
-        alert(`⚠️ Error: ${err.message}`);
+        console.error("Error initializing data:", err);
       } finally {
         setIsLoading(false);
       }
@@ -117,8 +96,8 @@ export default function AdminDashboardPage() {
 
   // ─── LOGIKA AKSI (DENGAN API INTEGRATION) ───
 
-  // 1. Aksi Simpan Konten Beranda
-  const handleSaveBeranda = async (e) => {
+  // 1. Aksi Simpan Media Utama & Visi Misi
+  const handleSaveMediaVisi = async (e) => {
     e.preventDefault();
     try {
       const res = await fetch("/api/beranda", {
@@ -128,24 +107,70 @@ export default function AdminDashboardPage() {
           videoUrl: inputVideo,
           visi: inputVisi,
           misi: inputMisi,
-          namaKahim: berandaData?.namaKahim || "",
-          fotoKahim: berandaData?.fotoKahim || "",
-          namaWakahim: berandaData?.namaWakahim || "",
-          fotoWakahim: berandaData?.fotoWakahim || "",
-          namaPembimbing: berandaData?.namaPembimbing || "",
-          fotoPembimbing: berandaData?.fotoPembimbing || "",
         }),
       });
 
       const data = await res.json();
       if (data.success) {
         setBerandaData(data.data);
-        window.alert("🎉 Konten Beranda berhasil diperbarui!");
+        window.alert("🎉 Media Utama & Visi Misi berhasil diperbarui!");
       } else {
         window.alert(`❌ Gagal: ${data.message}`);
       }
     } catch (err) {
-      console.error("Error saving beranda:", err);
+      console.error("Error saving media & visi misi:", err);
+      window.alert(`❌ Error: ${err.message}`);
+    }
+  };
+
+  // 2. Aksi Simpan Data Ketua & Wakil Ketua
+  const handleSaveKetuaWakil = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/beranda", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          namaKahim: inputNamaKahim,
+          namaWakahim: inputNamaWakahim,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setBerandaData(data.data);
+        window.alert("🎉 Data Ketua & Wakil Ketua berhasil diperbarui!");
+      } else {
+        window.alert(`❌ Gagal: ${data.message}`);
+      }
+    } catch (err) {
+      console.error("Error saving ketua wakil:", err);
+      window.alert(`❌ Error: ${err.message}`);
+    }
+  };
+
+  // 3. Aksi Simpan Data Dosen Pembimbing
+  const handleSaveDosenPembimbing = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/beranda", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          namaPembimbing1: inputDosen1Nama,
+          namaPembimbing2: inputDosen2Nama,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setBerandaData(data.data);
+        window.alert("🎉 Data Dosen Pembimbing berhasil diperbarui!");
+      } else {
+        window.alert(`❌ Gagal: ${data.message}`);
+      }
+    } catch (err) {
+      console.error("Error saving dosen pembimbing:", err);
       window.alert(`❌ Error: ${err.message}`);
     }
   };
@@ -322,7 +347,7 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // 9. Aksi Tambah Member Kabinet
+  // 9. Aksi Tambah Member Kabinet (Server Action)
   const handleAddKabinetMember = async (e) => {
     e.preventDefault();
     if (!newKabinetMember.nama || !newKabinetMember.nim || !newKabinetMember.jabatan || !newKabinetMember.kementerian || !newKabinetMember.fotoUrl) {
@@ -330,19 +355,14 @@ export default function AdminDashboardPage() {
       return;
     }
     try {
-      const res = await fetch("/api/kabinet", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newKabinetMember),
-      });
+      const result = await addKabinetMember(newKabinetMember);
 
-      const data = await res.json();
-      if (data.success) {
-        setKabinetMembers([...kabinetMembers, data.data]);
+      if (result.success) {
+        setKabinetMembers([...kabinetMembers, { ...newKabinetMember, id: Date.now() }]);
         setNewKabinetMember({ nama: "", nim: "", jabatan: "", kementerian: "", fotoUrl: "", periode: "2026" });
         window.alert("✅ Anggota kabinet berhasil ditambahkan!");
       } else {
-        window.alert(`❌ Gagal: ${data.message}`);
+        window.alert(`❌ Gagal: ${result.error}`);
       }
     } catch (err) {
       console.error("Error adding kabinet member:", err);
@@ -350,21 +370,17 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // 10. Aksi Hapus Member Kabinet
+  // 10. Aksi Hapus Member Kabinet (Server Action)
   const handleDeleteKabinetMember = async (id) => {
     if (!confirm("Apakah kamu yakin ingin menghapus anggota ini?")) return;
     try {
-      const res = await fetch(`/api/kabinet/${id}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      });
+      const result = await deleteKabinetMember(id);
 
-      const data = await res.json();
-      if (data.success) {
+      if (result.success) {
         setKabinetMembers(kabinetMembers.filter((member) => member.id !== id));
         window.alert("✅ Anggota kabinet berhasil dihapus!");
       } else {
-        window.alert(`❌ Gagal: ${data.message}`);
+        window.alert(`❌ Gagal: ${result.error}`);
       }
     } catch (err) {
       console.error("Error deleting kabinet member:", err);
@@ -445,8 +461,32 @@ export default function AdminDashboardPage() {
 
       {/* ─── AREA KONTEN UTAMA (KANAN) ─── */}
       <main className="flex-1 p-8 lg:p-12 overflow-y-auto">
+        {/* ─── LOADING STATE ─── */}
+        {isLoading && (
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="text-center space-y-3">
+              <div className="w-8 h-8 border-2 border-m-blue-light border-t-transparent rounded-full animate-spin mx-auto" />
+              <p className="text-xs text-muted font-mono uppercase tracking-wider">Memuat data Himpunan...</p>
+            </div>
+          </div>
+        )}
+
+        {/* ─── ERROR STATE ─── */}
+        {!isLoading && error && (
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="text-center space-y-3 max-w-md">
+              <span className="text-3xl">⚠️</span>
+              <h2 className="text-sm font-black uppercase tracking-wider text-m-red">Gagal Memuat Data</h2>
+              <p className="text-xs text-muted font-light">{error}</p>
+              <button onClick={() => window.location.reload()} className="py-2 px-4 bg-m-blue-dark text-white text-xs font-bold uppercase tracking-wider hover:bg-m-blue-light transition-all cursor-pointer">
+                Muat Ulang Halaman
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* ─── TAB 1: RINGKASAN GLOBAL ─── */}
-        {activeTab === "ringkasan" && (
+        {!isLoading && !error && activeTab === "ringkasan" && (
           <div className="space-y-6">
             <div>
               <h1 className="text-xl font-black uppercase tracking-wider text-on-dark">Ringkasan Sistem</h1>
@@ -470,7 +510,7 @@ export default function AdminDashboardPage() {
         )}
 
         {/* ─── TAB 2: FORM INPUT BERANDA LENGKAP ─── */}
-        {activeTab === "beranda" && (
+        {!isLoading && !error && activeTab === "beranda" && (
           <div className="space-y-8 max-w-6xl">
             {" "}
             {/* 🎯 SEKARANG SUDAH MAKSIMAL max-w-6xl SEPERTI TAB LAINNYA */}
@@ -480,7 +520,7 @@ export default function AdminDashboardPage() {
             </div>
             {/* ─── KONTEN BERANDA: SEGMEN 1 & 2 REVISI TOTAL (FULL UPLOADERS) ─── */}
             {/* SEGMEN 1: MEDIA VIDEO UTAMA & VISI MISI */}
-            <div className="border border-hairline bg-surface-soft p-6 space-y-5 shadow-md">
+            <form onSubmit={handleSaveMediaVisi} className="border border-hairline bg-surface-soft p-6 space-y-5 shadow-md">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-hairline pb-2 gap-2">
                 <h3 className="text-xs font-bold uppercase text-m-blue-light tracking-wider">1. Media Utama & Visi Misi</h3>
                 <span className="text-[9px] bg-canvas px-2 py-0.5 font-mono text-muted border border-hairline rounded-xs">Format: .mp4 Only</span>
@@ -510,9 +550,15 @@ export default function AdminDashboardPage() {
                   />
                 </div>
               </div>
-            </div>
+
+              <div className="text-right mt-4">
+                <button type="submit" className="py-2.5 px-6 bg-gradient-to-r from-m-blue-dark to-m-blue-light text-white text-xs font-bold uppercase tracking-wider shadow-lg hover:opacity-90 transition-all cursor-pointer">
+                  Simpan Media Utama & Visi Misi
+                </button>
+              </div>
+            </form>
             {/* SEGMEN 2: STRUKTUR PIMPINAN (KAHIM & WAKAHIM + INPUT FILE FOTO) */}
-            <div className="border border-hairline bg-surface-soft p-6 space-y-4 shadow-md">
+            <form onSubmit={handleSaveKetuaWakil} className="border border-hairline bg-surface-soft p-6 space-y-4 shadow-md">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-hairline pb-2 gap-2">
                 <h3 className="text-xs font-bold uppercase text-m-red tracking-wider">2. Data Ketua & Wakil Ketua Himpunan</h3>
                 <span className="text-[9px] bg-canvas px-2 py-0.5 font-mono text-muted border border-hairline rounded-xs">Rekomendasi Rasio: 3:4 (Portrait)</span>
@@ -525,7 +571,12 @@ export default function AdminDashboardPage() {
                     <span className="text-[10px] font-black text-m-blue-light uppercase tracking-wider block">Data Ketua (Kahim)</span>
                     <div className="space-y-1">
                       <label className="text-[9px] font-bold uppercase text-muted">Nama Lengkap & Gelar</label>
-                      <input type="text" defaultValue="Nabiel Syafiq Mujizan A" className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden" />
+                      <input
+                        type="text"
+                        value={inputNamaKahim}
+                        onChange={(e) => setInputNamaKahim(e.target.value)}
+                        className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden"
+                      />
                     </div>
                   </div>
                   {/* 🎯 Tombol Upload Foto Kahim */}
@@ -548,7 +599,12 @@ export default function AdminDashboardPage() {
                     <span className="text-[10px] font-black text-m-red uppercase tracking-wider block">Data Wakil (Wakahim)</span>
                     <div className="space-y-1">
                       <label className="text-[9px] font-bold uppercase text-muted">Nama Lengkap & Gelar</label>
-                      <input type="text" defaultValue="Ananda Farrel Tyass Shidiq" className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden" />
+                      <input
+                        type="text"
+                        value={inputNamaWakahim}
+                        onChange={(e) => setInputNamaWakahim(e.target.value)}
+                        className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden"
+                      />
                     </div>
                   </div>
                   {/* 🎯 Tombol Upload Foto Wakahim */}
@@ -565,9 +621,15 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
               </div>
-            </div>
+
+              <div className="text-right mt-4">
+                <button type="submit" className="py-2.5 px-6 bg-gradient-to-r from-m-blue-dark to-m-blue-light text-white text-xs font-bold uppercase tracking-wider shadow-lg hover:opacity-90 transition-all cursor-pointer">
+                  Simpan Data Ketua & Wakil Ketua
+                </button>
+              </div>
+            </form>
             {/* SEGMEN 3: DOSEN PEMBIMBING (REVISI + INPUT FILE FOTO) */}
-            <div className="border border-hairline bg-surface-soft p-6 space-y-4 shadow-md">
+            <form onSubmit={handleSaveDosenPembimbing} className="border border-hairline bg-surface-soft p-6 space-y-4 shadow-md">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-hairline pb-2 gap-2">
                 <h3 className="text-xs font-bold uppercase text-muted tracking-wider">3. Data Dosen Pembimbing Himpunan</h3>
                 <span className="text-[9px] bg-canvas px-2 py-0.5 font-mono text-muted border border-hairline rounded-xs">Rekomendasi Rasio: 4:3 (Landscape)</span>
@@ -580,15 +642,30 @@ export default function AdminDashboardPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="space-y-1">
                       <label className="text-[9px] font-bold text-muted uppercase">Nama Lengkap & Gelar</label>
-                      <input type="text" defaultValue="Alfilia Hilda Rahmatika, S.M., M.M,CPHRM., CHRBP" className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden" />
+                      <input
+                        type="text"
+                        value={inputDosen1Nama}
+                        onChange={(e) => setInputDosen1Nama(e.target.value)}
+                        className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden"
+                      />
                     </div>
                     <div className="space-y-1">
                       <label className="text-[9px] font-bold text-muted uppercase">Keahlian / Fokus Role</label>
-                      <input type="text" defaultValue="Digital Business Strategy" className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden" />
+                      <input
+                        type="text"
+                        value={inputDosen1Keahlian}
+                        onChange={(e) => setInputDosen1Keahlian(e.target.value)}
+                        className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden"
+                      />
                     </div>
                     <div className="space-y-1">
                       <label className="text-[9px] font-bold text-muted uppercase">Nomor Induk Pegawai (NIP)</label>
-                      <input type="text" defaultValue="NIP · 25000020-3" className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden" />
+                      <input
+                        type="text"
+                        value={inputDosen1NIP}
+                        onChange={(e) => setInputDosen1NIP(e.target.value)}
+                        className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden"
+                      />
                     </div>
                   </div>
                   {/* 🎯 Fitur Unggah Foto Dosen 1 */}
@@ -611,15 +688,30 @@ export default function AdminDashboardPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="space-y-1">
                       <label className="text-[9px] font-bold text-muted uppercase">Nama Lengkap & Gelar</label>
-                      <input type="text" defaultValue="Imam Adiyana, S.Stat., M.Si" className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden" />
+                      <input
+                        type="text"
+                        value={inputDosen2Nama}
+                        onChange={(e) => setInputDosen2Nama(e.target.value)}
+                        className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden"
+                      />
                     </div>
                     <div className="space-y-1">
                       <label className="text-[9px] font-bold text-muted uppercase">Keahlian / Fokus Role</label>
-                      <input type="text" defaultValue="Big Data Processing & Analysis" className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden" />
+                      <input
+                        type="text"
+                        value={inputDosen2Keahlian}
+                        onChange={(e) => setInputDosen2Keahlian(e.target.value)}
+                        className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden"
+                      />
                     </div>
                     <div className="space-y-1">
                       <label className="text-[9px] font-bold text-muted uppercase">Nomor Induk Pegawai (NIP)</label>
-                      <input type="text" defaultValue="NIP · 25920031-3" className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden" />
+                      <input
+                        type="text"
+                        value={inputDosen2NIP}
+                        onChange={(e) => setInputDosen2NIP(e.target.value)}
+                        className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden"
+                      />
                     </div>
                   </div>
                   {/* 🎯 Fitur Unggah Foto Dosen 2 */}
@@ -636,18 +728,18 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
               </div>
-            </div>
-            {/* TOMBOL AKSI SIMPAN GLOBAL KONTEN BERANDA */}
-            <div className="text-right">
-              <button onClick={handleSaveBeranda} className="py-2.5 px-6 bg-gradient-to-r from-m-blue-dark to-m-blue-light text-white text-xs font-bold uppercase tracking-wider shadow-lg hover:opacity-90 transition-all cursor-pointer">
-                Simpan Pembaruan Beranda (All Sections)
-              </button>
-            </div>
+
+              <div className="text-right mt-4">
+                <button type="submit" className="py-2.5 px-6 bg-gradient-to-r from-m-blue-dark to-m-blue-light text-white text-xs font-bold uppercase tracking-wider shadow-lg hover:opacity-90 transition-all cursor-pointer">
+                  Simpan Data Dosen Pembimbing
+                </button>
+              </div>
+            </form>
           </div>
         )}
 
         {/* ─── TAB 3: MANAJEMEN PUBLIKASI BERITA & INSIGHT (CRUD) ─── */}
-        {activeTab === "publikasi" && (
+        {!isLoading && !error && activeTab === "publikasi" && (
           <div className="space-y-8 max-w-6xl">
             {/* HEADER KONTROL KONTEN */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-hairline pb-4">
@@ -814,7 +906,7 @@ export default function AdminDashboardPage() {
         )}
 
         {/* ─── TAB 4: MANAJEMEN FUNGSIONARIS KABINET (CRUD) ─── */}
-        {activeTab === "kabinet" && (
+        {!isLoading && !error && activeTab === "kabinet" && (
           <div className="space-y-8 max-w-6xl">
             {/* HEADER KONTROL */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-hairline pb-4">
@@ -838,6 +930,8 @@ export default function AdminDashboardPage() {
                     <label className="text-[10px] font-bold uppercase text-body-strong">Nama Lengkap Anggota</label>
                     <input
                       type="text"
+                      value={newKabinetMember.nama}
+                      onChange={(e) => setNewKabinetMember({ ...newKabinetMember, nama: e.target.value })}
                       placeholder="Masukkan nama lengkap beserta gelar jika ada..."
                       className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden font-medium"
                     />
@@ -845,12 +939,22 @@ export default function AdminDashboardPage() {
 
                   <div className="space-y-1">
                     <label className="text-[10px] font-bold uppercase text-body-strong">Jabatan / Role Kerja</label>
-                    <input type="text" placeholder="Contoh: Staff Creative Media" className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden" />
+                    <input
+                      type="text"
+                      value={newKabinetMember.jabatan}
+                      onChange={(e) => setNewKabinetMember({ ...newKabinetMember, jabatan: e.target.value })}
+                      placeholder="Contoh: Staff Creative Media"
+                      className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden"
+                    />
                   </div>
 
                   <div className="space-y-1">
                     <label className="text-[10px] font-bold uppercase text-body-strong">Kategori Divisi / Departemen</label>
-                    <select className="w-full border border-hairline bg-canvas px-3 py-2 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden cursor-pointer uppercase font-mono text-[11px]">
+                    <select
+                      value={newKabinetMember.kementerian}
+                      onChange={(e) => setNewKabinetMember({ ...newKabinetMember, kementerian: e.target.value })}
+                      className="w-full border border-hairline bg-canvas px-3 py-2 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden cursor-pointer uppercase font-mono text-[11px]"
+                    >
                       <option value="Inti Kabinet">Inti Kabinet</option>
                       <option value="Human Resources Development">Human Resources Development</option>
                       <option value="Internal Relations">Internal Relations</option>
@@ -944,7 +1048,7 @@ export default function AdminDashboardPage() {
         )}
 
         {/* ─── TAB 5: MANAJEMEN MODUL KEGIATAN (AGENDA & GALERI) ─── */}
-        {activeTab === "kegiatan" && (
+        {!isLoading && !error && activeTab === "kegiatan" && (
           <div className="space-y-8 max-w-6xl">
             {/* HEADER UTAMA MODUL */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-hairline pb-4">
@@ -1092,6 +1196,8 @@ export default function AdminDashboardPage() {
                         <label className="text-[10px] font-bold uppercase text-body-strong">Keterangan / Label Foto</label>
                         <input
                           type="text"
+                          value={newGallery.caption}
+                          onChange={(e) => setNewGallery({ ...newGallery, caption: e.target.value })}
                           placeholder="Contoh: Workshop dokumentasi multimedia kepengurusan"
                           className="w-full border border-hairline bg-canvas px-3 py-1.5 text-xs text-on-dark focus:border-m-blue-dark focus:outline-hidden"
                         />
@@ -1158,7 +1264,7 @@ export default function AdminDashboardPage() {
         )}
 
         {/* ─── TAB 6: MANAJEMEN REKRUTMEN (DATABASE INTEGRATED) ─── */}
-        {activeTab === "rekrutmen" && (
+        {!isLoading && !error && activeTab === "rekrutmen" && (
           <div className="space-y-8 max-w-6xl">
             {/* Header Tab */}
             <div>

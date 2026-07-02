@@ -6,9 +6,10 @@ const MENU = [
   { href: "/", label: "Beranda" },
   { href: "/berita", label: "Berita" },
   { href: "/insight", label: "Insight" },
+  { href: "/rekrutmen/hmbd", label: "Rekrutmen HMBD" },
+  { href: "/rekrutmen/lainnya", label: "Rekrutmen Lainnya" },
   { href: "/kabinet", label: "Kabinet" },
   { href: "/kegiatan", label: "Kegiatan" },
-  { href: "/rekrutmen", label: "Rekrutmen" },
   { href: "/aspirasi", label: "Aspirasi" },
 ];
 
@@ -103,7 +104,6 @@ export default function Footer() {
               <br />
               Kabupaten Banyumas, Jawa Tengah 53142
               <br />
-              <span className="mt-4 block text-xs text-muted">Placeholder kontak akan mengikuti pengembangan berikutnya.</span>
             </address>
           </div>
         </div>

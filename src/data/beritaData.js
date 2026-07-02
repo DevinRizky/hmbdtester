@@ -2,6 +2,32 @@
 
 export const DATA_BERITA = [
   {
+    type: "berita",
+    slug: "generasi-muda-dan-ramadan-semangat-positif",
+    title: "Generasi Muda dan Ramadan: Menjalani Puasa dengan Semangat Positif",
+    date: "2026-05-30",
+    author: "Divisi R&E",
+    excerpt: "Ramadan bukan sekadar menahan lapar dan haus, melainkan momentum emas bagi mahasiswa untuk belajar disiplin, sabar, serta mengelola waktu di tengah padatnya aktivitas kuliah.",
+    content: `Bulan Suci Ramadan merupakan momen yang sangat istimewa bagi umat muslim di seluruh dunia. Pada bulan yang penuh keberkahan ini Allah Swt mewajibkan umat-Nya untuk berpuasa sebagaimana firman-Nya dalam QS. Al-Baqarah: 183 yang berbunyi bahwa diwajibkan atas kamu berpuasa sebagaimana diwajibkan atas orang-orang sebelum kamu agar kamu bertakwa.
+
+Ramadan bukan sekadar menahan nafsu, lapar, dan haus, tetapi juga menjadi kesempatan untuk memperbaiki diri serta meningkatkan kualitas spiritual melalui berbagai kegiatan positif. Di tengah kesibukan kita sebagai mahasiswa —mulai dari tugas, organisasi, hingga aktivitas sehari hari— Ramadan bukanlah sebuah alasan untuk menurunkan produktivitas. Justru, Ramadan ini menjadi momentum yang tepat bagi generasi muda untuk belajar disiplin, sabar, serta menumbuhkan semangat positif dalam menjalani kehidupan sehari-hari.
+
+[Tantangan Generasi Muda Saat Ramadan]
+Namun, menjalani Ramadan dengan konsisten tentu bukanlah hal yang mudah. Tidak dapat dipungkiri bahwa generasi muda menghadapi berbagai tantangan saat menjalankan ibadah puasa. Semangat yang tinggi di awal Ramadan sering kali melemah menjelang akhir bulan. Padatnya aktivitas perkuliahan, kegiatan kemahasiswaan, maupun organisasi yang sering datang berdekatan dapat mempengaruhi konsistensi ibadah. Kondisi tersebut membuat tubuh menjadi mudah lelah dan mendorong untuk melakukan istirahat berlebihan.
+
+Jika tidak dikelola dengan baik, kondisi tersebut dapat mengganggu kualitas ibadah selama Ramadan. Selain itu, generasi muda juga terkadang kurang tepat dalam menggunakan waktu, seperti bermain game yang tak kenal waktu, scroll media sosial berjam-jam, ataupun hal lainnya. Padahal, Rasulullah ﷺ telah mengingatkan dalam riwayat HR. Bukhari bahwa ada dua kenikmatan yang banyak manusia tertipu padanya, yaitu kesehatan dan waktu luang.
+
+Hal tersebut tentu dapat mengurangi keberkahan kita di bulan yang suci ini, karena sejatinya waktu yang disia-siakan tersebut dapat kita gunakan untuk melakukan hal-hal yang lebih bermanfaat ataupun beribadah. Apabila ibadah yang kita jalankan di bulan suci ini diniatkan dari hati dan ikhlas karena Allah, maka pahalanya akan dilipatgandakan oleh Allah Swt. Oleh karena itu, di waktu dan kesempatan yang sangat mulia ini akan sayang sekali jika dilewatkan. Diperlukan strategi yang tepat agar generasi muda dapat memanfaatkan Ramadan secara optimal.
+
+[Bagaimana Cara Menggunakan Waktu Dengan Baik Saat Ramadan?]
+Ramadan merupakan bulan yang tepat untuk memperbaiki diri serta menambah amal. Di era yang semakin canggih ini, generasi muda perlu membatasi penggunaan media sosial agar dapat lebih fokus dalam beribadah and memperbaiki diri. Aktivitas yang kurang produktif dapat diganti dengan kegiatan yang lebih bernilai, seperti berzikir, memperbanyak salat sunah, membaca Al-Qur’an, dan berdoa.
+
+Generasi muda juga dapat berperan aktif dalam menyebarkan semangat Ramadan di lingkungan sekitar. Kegiatan seperti berbagi takjil, membantu kegiatan di masjid, atau membuat konten edukatif tentang Ramadan dapat memberikan dampak positif bagi masyarakat luas.
+
+Pada akhirnya, bulan Ramadan adalah kesempatan yang berharga bagi generasi muda untuk menjadi pribadi yang lebih baik dan lebih positif. Dengan menjalani puasa penuh semangat positif, generasi muda tidak hanya menahan nafsu, lapar, dan haus, tetapi juga meningkatkan kualitas ibadah serta membangun karakter yang kuat dan peduli terhadap sesama. Semoga Ramadan dapat menjadi momen yang berkesan dan membawa banyak kebaikan bagi seluruh umat muslim, bukan hanya di tahun ini, tetapi di Ramadan tahun berikutnya dan seterusnya. Amin.`,
+    imgSrc: "https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=800",
+  },
+  {
     type: "insight",
     slug: "generasi-muda-dan-ramadan-semangat-positif",
     title: "Generasi Muda dan Ramadan: Menjalani Puasa dengan Semangat Positif",
@@ -188,5 +214,42 @@ Daftar Pustaka & Jurnal Rujukan:
 3. Jurnal Pendidikan Tambusai. (2023). Manajemen Waktu dan Penyesuaian Diri Mahasiswa Baru.
 4. Jurnal Ilmu Sosial dan Humaniora. (2024). Dampak Culture Shock Terhadap Prestasi Akademik Perkuliahan.`,
     imgSrc: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800", // Gambar dunia kampus/mahasiswa berdiskusi seru
+  },
+  {
+    type: "insight",
+    slug: "cara-mahasiswa-menghadapi-deadline-tanpa-stres-berlebihan",
+    title: "Cara Mahasiswa Menghadapi Deadline Tanpa Stres Berlebihan",
+    date: "2026-07-01",
+    author: "Divisi R&E",
+    excerpt: "Dikejar banyak deadline tugas dan organisasi sering kali memicu burnout. Pelajari strategi manajemen waktu, skala prioritas, dan teknik Pomodoro agar tetap produktif tanpa stres.",
+    content: `Menjadi mahasiswa berarti harus siap untuk menghadapi berbagai tugas, organisasi, laporan, presentasi, projek, hingga ujian dengan waktu yang berdekatan atau bahkan bersamaan. Banyak mahasiswa yang merasa burn out atau stres ketika dikejar banyak deadline yang menumpuk. Akibat dari hal ini, banyak mahasiswa yang begadang mengerjakan tugas, merasa cemas, hingga kehilangan semangat belajar. Hal ini jika tidak dikelola dengan baik, maka tekanan baik dari akademik maupun non-akademik dapat memengaruhi kesehatan mental dan fisik kita. Oleh sebab itu, sangat penting bagi mahasiswa untuk mengetahui bagaimana caranya menghadapi deadline agar tetap produktif tanpa mengalami stres yang berlebihan.
+
+[Alasan Mahasiswa Mudah Stres Menghadapi Deadline]
+Salah satu penyebab paling sering mahasiswa mengalami stres yaitu karena kebiasaan menunda-nunda pekerjaan (prokrastinasi). Banyak mahasiswa yang merasa masih memiliki banyak waktu sehingga menyepelekan tugas di awal. Menurut rujukan para ahli, kebiasaan menunda dan manajemen waktu yang buruk dapat menyebabkan stres akademik di kalangan mahasiswa. Stres ini lambat laun membuat kesehatan fisik dan mental menurun, kegagalan akademik, hingga hilangnya kepercayaan diri. Data riset pada tingkat universitas menunjukkan bahwa mayoritas mahasiswa suka menunda-nunda tugas penelitian dan persiapan ujian. Manajemen waktu yang baik berbanding lurus dengan penurunan tingkat stres; semakin tertata jadwal kita, semakin minim pula keinginan untuk menunda pekerjaan. Oleh sebab itu, sebagai mahasiswa kita harus bisa menyeimbangkan waktu antara belajar, mengerjakan tugas, bermain, hingga berorganisasi dengan baik.
+
+[1. Membuat Skala Prioritas]
+Sebagai mahasiswa, kita harus tahu mana tugas yang memiliki tenggat waktu paling mepet dan harus diselesaikan terlebih dahulu. Tugas dengan deadline terdekat harus menjadi prioritas utama. Jika kita sudah menentukan prioritas dengan jelas sejak awal pekan, kita bisa dengan mudah untuk lebih fokus pada satu per satu pekerjaan dan tidak akan lagi merasa kewalahan akibat tumpukan tugas yang datang bersamaan.
+
+[2. Mengatur Jadwal Belajar dan Istirahat]
+Memiliki jadwal harian yang teratur dapat membantu mahasiswa untuk belajar dan beristirahat dengan porsi waktu yang seimbang (tidak berat sebelah). Dengan mencicil sedikit demi sedikit setiap hari, tugas-tugas yang awalnya terasa sangat berat dan kompleks akan terasa lebih ringan sebab diselesaikan secara bertahap, bukan dengan sistem kebut semalam.
+
+[3. Menghindari Kebiasaan Menunda (Teknik Pomodoro)]
+Memulai tugas dari bagian yang paling mudah merupakan salah satu cara yang tepat untuk memicu dan meningkatkan semangat belajar. Selain itu, mahasiswa juga bisa menerapkan Teknik Belajar Pomodoro, yaitu memfokuskan diri untuk belajar/mengerjakan tugas dalam waktu 25 menit, lalu mengambil istirahat sejenak selama 5 menit. Setelah itu, lanjut belajar lagi agar fokus dan kesegaran pikiran tetap terjaga.
+
+[4. Mencari Dukungan Lingkungan Sekitar]
+Bercerita dengan teman, keluarga, atau orang terdekat dapat membantu mengurangi tekanan emosional. Bagi mahasiswa, dukungan sosial tersebut memberikan kekuatan moral dan membuat kita merasa bahwa diri kita tidak sendirian dalam menghadapi masa-masa sulit atau pekan-pekan padat perkuliahan.
+
+[5. Menjaga Kesehatan Fisik dan Mental]
+Banyaknya deadline sering kali membuat mahasiswa rela memotong waktu tidur hanya demi menyelesaikan tugas semata. Padahal, kurang tidur dapat mengurangi tingkat konsentrasi dan membuat tubuh cepat lelah di keesokan harinya. Riset kesehatan membuktikan bahwa semakin baik kualitas tidur seorang mahasiswa, maka akan semakin baik pula tingkat konsentrasi akademis yang dimilikinya saat berada di dalam kelas.
+
+[Kesimpulan]
+Pada hakikatnya \"deadline\" adalah sebuah bagian integral yang tidak akan pernah terlepaskan dari kehidupan seorang mahasiswa. Tugas yang banyak, jadwal yang padat, serta aktivitas lainnya akan memicu stres jika tidak dikelola dengan baik. Ada banyak cara untuk mengurangi tekanan tersebut, di antaranya melalui manajemen waktu yang baik, disiplin diri, menyusun skala prioritas, dan membuang kebiasaan menunda. Kebiasaan positif itulah yang menjadikan mahasiswa tetap tenang, produktif, dan teratur dalam menaklukkan setiap tantangan perkuliahan.
+
+Daftar Pustaka & Jurnal Rujukan:
+1. Nayak, S. G. (2019). Academic Procrastination Academic Procrastination among Students. Counsellia: Jurnal Bimbingan dan Konseling.
+2. Ahmad, S. I., Malik, S., & Jumani, N. B. (2018). Academic Procrastination: An Exploration for the Cause at University Level. International Journal of Innovation in Teaching and Learning.
+3. Pertiwi, G. A. (2020). Pengaruh Stres Akademik dan Manajemen Waktu Terhadap Prokrastinasi Akademik. Jurnal Ilmiah Psikologi.
+4. Salikunna, N. A., Astiawan, W. D., Handayani, F., & Ramadhan, M. Z. (2022). Hubungan Antara Kualitas Tidur dengan Tingkat Konsentrasi pada Mahasiswa. Jurnal Kesehatan Tadulako.`,
+    imgSrc: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=800", // Foto bernuansa kalender, laptop, agenda kerja dan catatan manajemen waktu produktif
   },
 ];

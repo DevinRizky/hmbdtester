@@ -6,8 +6,7 @@ import { useSearchParams } from "next/navigation";
 const inputBase =
   "w-full rounded-none border border-hairline bg-surface-soft px-4 py-3 text-[15px] font-light leading-relaxed text-on-dark caret-m-blue-dark transition duration-200 outline-none placeholder:text-muted focus-visible:border-transparent focus-visible:bg-surface-soft focus-visible:shadow-[0_0_0_1px_#1c69d4,0_0_28px_rgba(28,105,212,0.35)]";
 
-export default function RecruitmentForm() {
-  // Menangkap parameter ?posisi=... dari URL
+export default function RecruitmentForm({ kategori = "hmbd" }) {
   const searchParams = useSearchParams();
   const posisiDipilih = searchParams.get("posisi") || "Umum / Open Recruitment";
 
@@ -38,8 +37,9 @@ export default function RecruitmentForm() {
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          targetSheet: "Rekrutmen", // Mengatur target rute ke sheet Rekrutmen
-          posisi: posisiDipilih, // Nama kepanitiaan otomatis terkirim
+          targetSheet: "Rekrutmen",
+          kategori_rekrutmen: kategori,
+          posisi: posisiDipilih,
           nama: nama,
           nim: nim,
           kelas: kelas,
@@ -54,8 +54,7 @@ export default function RecruitmentForm() {
       setLinkPendukung("");
     } catch (error) {
       setErrorMessage("Gagal mengirim data pendaftaran. Silakan coba lagi.");
-    }
-    {
+    } finally {
       setLoading(false);
     }
   }
@@ -74,12 +73,6 @@ export default function RecruitmentForm() {
           {errorMessage}
         </div>
       )}
-
-      {/* INDIKATOR POSISI PILIHAN OTOMATIS */}
-      <div className="mb-8 border-l-2 border-m-blue-dark bg-canvas/40 p-4">
-        <span className="block text-[10px] font-bold uppercase tracking-wider text-muted">Posisi Pilihan Anda:</span>
-        <span className="text-sm font-medium text-on-dark block mt-1">{posisiDipilih}</span>
-      </div>
 
       <div className="space-y-8">
         <div>

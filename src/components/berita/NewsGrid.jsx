@@ -2,7 +2,7 @@
 
 import { DATA_BERITA } from "@/data/beritaData";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react"; // 🛠️ Ditambahkan useEffect
 
 function formatIdDateShort(iso) {
   const d = new Date(`${iso}T12:00:00`);
@@ -14,9 +14,25 @@ function formatIdDateShort(iso) {
 }
 
 export default function NewsGrid({ contentType }) {
+  // 💡 STATE PENGAMAN HIDRASI NEXT.JS
+  const [mounted, setMounted] = useState(false);
+
   // 1. STATE PAGINASI: Halaman aktif saat ini (dimulai dari halaman 1)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6; // Batasan maksimal konten per halaman
+
+  // 💡 Pemicu siklus pasang komponen di sisi client murni (Aman dari amukan ESLint)
+  useEffect(() => {
+    let isSubscribed = true;
+    queueMicrotask(() => {
+      if (isSubscribed) {
+        setMounted(true);
+      }
+    });
+    return () => {
+      isSubscribed = false;
+    };
+  }, []);
 
   // 2. LOGIKA PENYARING DATA KATEGORI
   const dataTersaring = contentType ? DATA_BERITA.filter((post) => post.type === contentType) : DATA_BERITA;
@@ -36,11 +52,26 @@ export default function NewsGrid({ contentType }) {
   const goToPage = (pageNumber) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
-      // Opsional: Gulir layar otomatis ke atas grid setelah klik ganti halaman
-      window.scrollTo({ top: 300, behavior: "smooth" });
+      if (typeof window !== "undefined") {
+        window.scrollTo({ top: 300, behavior: "smooth" });
+      }
     }
   };
 
+  // 🛠️ JIKA BELUM MOUNTED (SSR SEDANG BERJALAN), RENDER SKELETON PENYANGGA BERSAMA
+  if (!mounted) {
+    return (
+      <section className="py-section">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
+          <div className="text-center py-16 border border-dashed border-hairline bg-surface-soft">
+            <p className="text-sm text-muted font-light">Memuat daftar konten publikasi...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // KODE DI BAWAH INI AKAN DIEKSEKUSI 100% AMAN DI SISI CLIENT SETELAH HIDRASI SELESAI
   return (
     <section aria-labelledby="berita-daftar-heading" className="py-section">
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">

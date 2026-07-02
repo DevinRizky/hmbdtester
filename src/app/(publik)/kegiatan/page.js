@@ -11,10 +11,7 @@ export default function KegiatanPage() {
   return (
     <>
       <PageShell eyebrow="Agenda & dokumentasi resmi" title="Kegiatan">
-        <p>
-          Satu jalur bagi perencanaan agenda yang mobile-friendly serta galeri
-          dokumentasi resmi — struktur foto mengikuti aspek kotak industri tanpa radius.
-        </p>
+        <p>Satu jalur bagi perencanaan agenda dan galeri dokumentasi resmi.</p>
       </PageShell>
 
       <div className="mx-auto max-w-[1440px] px-4 py-section sm:px-6 lg:px-10">

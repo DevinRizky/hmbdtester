@@ -12,8 +12,18 @@ export default function DetailInsightPage() {
   // 💡 PERBAIKAN 2: Ganti DATA_MASTER_KONTEN menjadi DATA_BERITA
   const artikel = DATA_BERITA.find((item) => item.slug === slug && item.type === "insight");
 
+  // Jika artikel tidak ditemukan, langsung return UI fallback agar build statis tetap aman
   if (!artikel) {
-    notFound();
+    return (
+      <main className="bg-canvas min-h-screen py-24 text-center">
+        <div className="mx-auto max-w-[800px] px-4">
+          <p className="text-sm text-muted">Aset Insight dengan slug &ldquo;{slug}&rdquo; tidak terdeteksi.</p>
+          <Link href="/insight" className="text-xs text-m-blue-dark uppercase mt-4 inline-block font-bold">
+            ← Kembali ke Index Insight
+          </Link>
+        </div>
+      </main>
+    );
   }
 
   return (
