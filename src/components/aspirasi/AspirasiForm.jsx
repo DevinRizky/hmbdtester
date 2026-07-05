@@ -19,7 +19,6 @@ export default function AspirasiForm() {
   const [pesan, setPesan] = useState("");
   const [sent, setSent] = useState(false);
 
-  // FIX INTEGRASI: Menambahkan state loading dan error handling backend
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -34,11 +33,9 @@ export default function AspirasiForm() {
     }
   }, []);
 
-  // FIX INTEGRASI: Mengubah fungsi submit menjadi async untuk berkomunikasi dengan Google Sheets
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // Validasi dasar jika bukan anonim tapi form kosong
     if (!anonymous && (!nama.trim() || !nim.trim())) {
       setErrorMessage("Mohon lengkapi Nama dan NIM Anda atau pilih kirim sebagai Anonim.");
       return;
@@ -50,14 +47,14 @@ export default function AspirasiForm() {
 
     setLoading(true);
     setErrorMessage("");
+    setSent(false); // Reset status kirim jika sebelumnya sudah pernah kirim
 
-    // PASTE: Masukkan tautan Web App URL dari deployment Google Apps Script kamu di sini
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwTP3mHKv7W7vENXHiVN512fx6rAjA06lOH6R3WIlDj1B05ooYapBQo6qjRC0egbSTV/exec";
 
     try {
       await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
-        mode: "no-cors", // Wajib no-cors untuk bypass pembatasan CORS redirect Google Domain
+        mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
         },
@@ -69,11 +66,8 @@ export default function AspirasiForm() {
         }),
       });
 
-      // Karena mode 'no-cors' tidak bisa membaca response json (opaque response),
-      // jika eksekusi fetch berhasil tanpa masuk blok catch, kita nyatakan data suskes terkirim.
       setSent(true);
 
-      // Reset isian form kecuali pilihan anonim
       if (!anonymous) {
         setNama("");
         setNim("");
@@ -96,20 +90,20 @@ export default function AspirasiForm() {
 
         <form onSubmit={handleSubmit} className="border border-hairline bg-surface-soft p-6 lg:p-10" noValidate>
           {/* BANNER STATUS BERHASIL */}
-          {sent ? (
-            <div role="status" className="mb-8 border border-m-blue-dark/40 bg-canvas px-4 py-3 text-sm font-light text-body-strong flex flex-col gap-1">
+          {sent && (
+            <div role="status" className="animate-in fade-in slide-in-from-top-2 duration-300 mb-8 border border-m-blue-dark/40 bg-canvas px-4 py-3 text-sm font-light text-body-strong flex flex-col gap-1">
               <span className="font-bold text-m-blue-dark uppercase tracking-wider text-[11px]">Sukses Terkirim</span>
               <span>Aspirasi Anda berhasil disimpan ke dalam database Kabinet Aradhana. Terima kasih atas kontribusinya!</span>
             </div>
-          ) : null}
+          )}
 
           {/* BANNER STATUS ERROR */}
-          {errorMessage ? (
-            <div role="alert" className="mb-8 border border-m-red/40 bg-canvas px-4 py-3 text-sm font-light text-m-red flex flex-col gap-1">
+          {errorMessage && (
+            <div role="alert" className="animate-in fade-in slide-in-from-top-2 duration-300 mb-8 border border-m-red/40 bg-canvas px-4 py-3 text-sm font-light text-m-red flex flex-col gap-1">
               <span className="font-bold uppercase tracking-wider text-[11px]">Terjadi Kesalahan</span>
               <span>{errorMessage}</span>
             </div>
-          ) : null}
+          )}
 
           <div className="space-y-8">
             <div>
@@ -124,7 +118,7 @@ export default function AspirasiForm() {
                 className={`${inputBase} mt-3`}
                 value={anonymous ? "ANONIM" : nama}
                 onChange={(e) => setNama(e.target.value)}
-                disabled={anonymous || loading} // Kunci form saat mengirim
+                disabled={anonymous || loading}
                 required={!anonymous}
                 aria-required={!anonymous}
               />
@@ -143,11 +137,11 @@ export default function AspirasiForm() {
                 className={`${inputBase} mt-3`}
                 value={anonymous ? "ANONIM" : nim}
                 onChange={(e) => setNim(e.target.value)}
-                disabled={anonymous || loading} // Kunci form saat mengirim
+                disabled={anonymous || loading}
                 required={!anonymous}
                 aria-required={!anonymous}
               />
-              <label className="mt-4 flex cursor-pointer items-start gap-3 text-sm font-light text-body">
+              <label className="mt-4 flex cursor-pointer items-start gap-3 text-sm font-light text-body select-none">
                 <input
                   type="checkbox"
                   checked={anonymous}
@@ -165,8 +159,8 @@ export default function AspirasiForm() {
                 {CATEGORY_OPTIONS.map(({ value, label }) => (
                   <label
                     key={value}
-                    className={`flex cursor-pointer items-center gap-3 border px-4 py-3 text-sm font-light uppercase tracking-wide transition duration-200 ${
-                      kategori === value ? "border-m-blue-dark bg-surface-card text-on-dark shadow-[inset_0_0_0_1px_rgba(226,39,24,0.12)]" : "border-hairline text-body hover:border-m-blue-dark/50"
+                    className={`flex cursor-pointer items-center gap-3 border px-4 py-3 text-sm font-light uppercase tracking-wide transition duration-200 select-none ${
+                      kategori === value ? "border-m-blue-dark bg-surface-card text-on-dark shadow-[inset_0_0_0_1px_rgba(28,105,212,0.12)]" : "border-hairline text-body hover:border-m-blue-dark/50"
                     }`}
                   >
                     <input
@@ -175,7 +169,7 @@ export default function AspirasiForm() {
                       value={value}
                       checked={kategori === value}
                       onChange={() => setKategori(value)}
-                      className="size-4 rounded-none border border-hairline bg-surface-soft accent-m-blue-dark focus-visible:ring-2 focus-visible:ring-m-red focus-visible:ring-offset-2 focus-visible:ring-offset-surface-soft"
+                      className="size-4 rounded-none border border-hairline bg-surface-soft accent-m-blue-dark focus-visible:ring-2 focus-visible:ring-m-blue-dark focus-visible:ring-offset-2 focus-visible:ring-offset-surface-soft"
                     />
                     {label}
                   </label>
@@ -187,26 +181,27 @@ export default function AspirasiForm() {
               <label htmlFor="pesan" className="block text-[11px] font-bold uppercase tracking-[1.5px] text-on-dark">
                 Pesan aspirasi anda
               </label>
-              <textarea
-                id="pesan"
-                name="pesan"
-                rows={6}
-                className={`${inputBase} mt-3 resize-y min-h-[160px]`}
-                value={pesan}
-                onChange={(e) => setPesan(e.target.value)}
-                disabled={loading} // Kunci textarea saat mengirim
-                required
-              />
+              <textarea id="pesan" name="pesan" rows={6} className={`${inputBase} mt-3 resize-y min-h-[160px]`} value={pesan} onChange={(e) => setPesan(e.target.value)} disabled={loading} required />
             </div>
           </div>
 
           <div className="mt-10 flex flex-col gap-4 border-t border-hairline pt-8 sm:flex-row sm:items-center sm:justify-between">
             <button
               type="submit"
-              disabled={loading} // Menonaktifkan tombol agar tidak double submit
-              className="inline-flex h-12 min-w-[148px] items-center justify-center border border-on-dark bg-transparent px-8 text-[13px] font-bold uppercase tracking-[1.5px] text-on-dark transition duration-200 ease-out hover:border-m-blue-dark hover:bg-on-dark hover:text-canvas hover:shadow-[0_0_36px_rgba(28,105,212,0.45),inset_0_0_0_1px_rgba(226,39,24,0.12)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-m-red focus-visible:ring-offset-2 focus-visible:ring-offset-surface-soft disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={loading}
+              className="inline-flex h-12 min-w-[148px] items-center justify-center border border-on-dark bg-transparent px-8 text-[13px] font-bold uppercase tracking-[1.5px] text-on-dark transition duration-200 ease-out hover:border-m-blue-dark hover:bg-on-dark hover:text-canvas hover:shadow-[0_0_36px_rgba(28,105,212,0.45)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-m-blue-dark focus-visible:ring-offset-2 focus-visible:ring-offset-surface-soft disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {loading ? "Mengirim..." : "Kirim"}
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <svg className="animate-spin h-4 w-4 text-current" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  Mengirim...
+                </span>
+              ) : (
+                "Kirim"
+              )}
             </button>
             <p className="max-w-md text-xs font-light leading-relaxed text-muted">Pastikan isian mematuhi etika kampus. Data akan langsung terenkripsi dan disimpan langsung ke dalam pusat pemantauan aspirasi Kabinet Aradhana.</p>
           </div>

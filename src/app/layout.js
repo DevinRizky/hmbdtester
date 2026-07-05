@@ -1,4 +1,4 @@
-// src/app/layout.js (Versi Bersih)
+// src/app/layout.js
 import "@/app/globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 

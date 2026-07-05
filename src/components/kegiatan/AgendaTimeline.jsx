@@ -1,6 +1,7 @@
-"use client"; // 1. Wajib tambahkan ini di baris paling pertama!
+"use client";
 
-import { useState } from "react"; // 2. Pastikan useState sudah di-import
+import { useState } from "react";
+import ScrollAnimate from "@/components/ui/ScrollAnimate"; // 🎯 Impor komponen ScrollAnimate
 
 const AGENDA = [
   // --- BULAN SEPTEMBER 2026 ---
@@ -31,7 +32,7 @@ const AGENDA = [
   {
     id: "sept-04",
     name: "MAKRAB ANGKATAN 26 — DEPARTEMEN INTERNAL",
-    date: "2026-09-19", // Diambil dari tanggal mulai pelaksanaan (19-20 September)
+    date: "2026-09-19",
     place: "Twin Palm Villa",
     status: "Mendatang",
     desc: "Membangun solidaritas antar mahasiswa serta membentuk karakter pemimpin yang adaptif melalui rangkaian Latihan Dasar Kepemimpinan (LDK), kerja sama tim, dan problem solving.",
@@ -39,7 +40,7 @@ const AGENDA = [
   {
     id: "sept-05",
     name: "DIGISPORT — DEPARTEMEN HR",
-    date: "2026-09-25", // Diambil dari tanggal mulai pelaksanaan (25-27 September)
+    date: "2026-09-25",
     place: "Telkom University Purwokerto",
     status: "Mendatang",
     desc: "Mewadahi, mengembangkan, dan mengoptimalkan potensi mahasiswa di berbagai bidang non-akademik agar mampu mengenali potensi diri dan meningkatkan kepercayaan diri.",
@@ -47,7 +48,7 @@ const AGENDA = [
   {
     id: "sept-06",
     name: "WASMA — DEPARTEMEN ADVO",
-    date: "2026-09-30", // Tanggal placeholder akhir bulan karena belum tersedia resmi
+    date: "2026-09-30",
     place: "Belum Ditentukan",
     status: "Mendatang",
     desc: "Program kerja Departemen Advocacy. (Detail jadwal pelaksanaan resmi akan segera disesuaikan).",
@@ -75,7 +76,7 @@ const AGENDA = [
   {
     id: "nov-01",
     name: "DIGISTORE — DEPARTEMEN BNE",
-    date: "2026-11-01", // Placeholder awal bulan karena belum ditentukan resmi
+    date: "2026-11-01",
     place: "Belum Ditentukan",
     status: "Mendatang",
     desc: "Kegiatan penjualan dan pemasaran produk berkelanjutan oleh Departemen Business & Entrepreneurship HMBD.",
@@ -112,36 +113,32 @@ const AGENDA = [
     date: "2026-12-21",
     place: "Telkom University Purwokerto",
     status: "Mendatang",
-    desc: "Musyawarah hasil pertanggungjawaban kerja satu periode Himpunan yang akan berakhir dan pembentukan amanah kepemimpinan baru.",
+    desc: "Musyawarah hasil pertanggungjawaban kerja satu periode Himpunan yang akan berakhir and pembentukan amanah kepemimpinan baru.",
   },
   {
     id: "des-04",
     name: "SERTIJAB (SERAH TERIMA JABATAN) — KESELURUHAN DEPARTEMEN",
-    date: "2026-12-28", // Placeholder akhir bulan karena belum ditentukan resmi
+    date: "2026-12-28",
     place: "Belum Ditentukan",
     status: "Mendatang",
     desc: "Pelantikan resmi fungsionaris dan anggota baru untuk periode kepengurusan yang melanjutkan.",
   },
 ];
 
-/** Mendatang dulu (+ tanggal terdekat), lalu Selesai (tanggal terbaru). */
 function sortedAgenda() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // 1. Ambil agenda mendatang dan urutkan dari tanggal terdekat
   const upcoming = AGENDA.filter((x) => {
     const itemDate = new Date(`${x.date}T12:00:00`);
     return itemDate >= today;
   }).sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  // 2. Ambil agenda masa lalu (jika ada) dan urutkan dari yang terbaru selesai
   const done = AGENDA.filter((x) => {
     const itemDate = new Date(`${x.date}T12:00:00`);
     return itemDate < today;
   }).sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // 3. GABUNGKAN KEMBALI MENJADI SATU ARRAY TUNGGAL [...upcoming, ...done]
   return [...upcoming, ...done];
 }
 
@@ -155,7 +152,6 @@ function formatIdDate(iso) {
   });
 }
 
-/** Selisih dalam hari: positif mendatang dari hari ini, negatif jika telah lewat. */
 function relativeDayLabel(delta, status) {
   if (status === "Mendatang") {
     if (delta === 0) return "hari ini";
@@ -176,13 +172,10 @@ function daysFromToday(iso) {
 }
 
 export default function AgendaTimeline() {
-  const timeline = sortedAgenda(); // atau fungsi sortir dinamis kamu
-
-  // State untuk menyimpan ID agenda yang sedang di-expand (null artinya semua tertutup)
+  const timeline = sortedAgenda();
   const [expandedId, setExpandedId] = useState(null);
 
   const toggleExpand = (id) => {
-    // Jika yang diklik adalah yang sedang terbuka, maka tutup (set null). Jika bukan, buka yang baru.
     setExpandedId(expandedId === id ? null : id);
   };
 
@@ -198,57 +191,50 @@ export default function AgendaTimeline() {
           const isExpanded = expandedId === item.id;
 
           return (
-            <li key={item.id} className="group relative border border-hairline bg-surface-soft transition duration-200 ease-out hover:bg-surface-card hover:shadow-[inset_0_0_0_1px_rgba(28,105,212,0.18)]">
-              {/* Tombol transparan pembungkus seluruh area kartu agar bisa diklik */}
-              <button onClick={() => toggleExpand(item.id)} className="w-full text-left p-6 sm:p-8 flex gap-6 pl-6 sm:pl-8 focus:outline-none focus:bg-surface-card" aria-expanded={isExpanded}>
-                {/* Aksen garis vertikal di kiri */}
-                <span className={`absolute inset-y-0 left-0 w-1 bg-linear-to-b from-m-blue-light via-m-blue-dark to-m-red opacity-60 transition duration-200 group-hover:opacity-100 ${isExpanded ? "opacity-100" : ""}`} aria-hidden />
+            /* 🎯 Bungkus li dengan ScrollAnimate menggunakan index stagger delay */
+            <ScrollAnimate key={item.id} variant="fadeInUp" delay={i * 0.05} speed={0.4} className="w-full">
+              <li className="group relative border border-hairline bg-surface-soft transition duration-200 ease-out hover:bg-surface-card hover:shadow-[inset_0_0_0_1px_rgba(28,105,212,0.18)]">
+                <button onClick={() => toggleExpand(item.id)} className="w-full text-left p-6 sm:p-8 flex gap-6 pl-6 sm:pl-8 focus:outline-none focus:bg-surface-card" aria-expanded={isExpanded}>
+                  <span className={`absolute inset-y-0 left-0 w-1 bg-linear-to-b from-m-blue-light via-m-blue-dark to-m-red opacity-60 transition duration-200 group-hover:opacity-100 ${isExpanded ? "opacity-100" : ""}`} aria-hidden />
 
-                <span className="hidden w-10 shrink-0 pt-1 font-bold tabular-nums text-muted sm:block">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="hidden w-10 shrink-0 pt-1 font-bold tabular-nums text-muted sm:block">{String(i + 1).padStart(2, "0")}</span>
 
-                <div className="min-w-0 flex-1">
-                  {/* Metadata */}
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <time className="text-[13px] font-bold uppercase tracking-[1.5px] text-body-strong" dateTime={item.date}>
-                      {formatIdDate(item.date)}
-                    </time>
-                    <span className={`border px-2 py-0.5 text-[11px] font-bold uppercase tracking-[1.5px] ${item.status === "Mendatang" ? "border-m-blue-dark/70 text-body-strong" : "border-hairline-strong text-muted"}`}>{item.status}</span>
-                    <span className="text-[11px] font-light uppercase tracking-wide text-muted">{relativeDayLabel(delta, item.status)}</span>
-                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                      <time className="text-[13px] font-bold uppercase tracking-[1.5px] text-body-strong" dateTime={item.date}>
+                        {formatIdDate(item.date)}
+                      </time>
+                      <span className={`border px-2 py-0.5 text-[11px] font-bold uppercase tracking-[1.5px] ${item.status === "Mendatang" ? "border-m-blue-dark/70 text-body-strong" : "border-hairline-strong text-muted"}`}>
+                        {item.status}
+                      </span>
+                      <span className="text-[11px] font-light uppercase tracking-wide text-muted">{relativeDayLabel(delta, item.status)}</span>
+                    </div>
 
-                  {/* Judul Agenda + Indikator Panah */}
-                  <div className="mt-4 flex items-start justify-between gap-4">
-                    <p className="text-lg font-bold uppercase leading-snug tracking-tight text-on-dark sm:text-xl">{item.name}</p>
-                    {/* Ikon panah mini penunjuk interaksi (berputar saat expand) */}
-                    <svg
-                      className={`w-5 h-5 text-muted shrink-0 mt-1 transition-transform duration-300 motion-reduce:transition-none ${isExpanded ? "rotate-180 text-m-blue-light" : ""}`}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
+                    <div className="mt-4 flex items-start justify-between gap-4">
+                      <p className="text-lg font-bold uppercase leading-snug tracking-tight text-on-dark sm:text-xl">{item.name}</p>
+                      <svg
+                        className={`w-5 h-5 text-muted shrink-0 mt-1 transition-transform duration-300 motion-reduce:transition-none ${isExpanded ? "rotate-180 text-m-blue-light" : ""}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
 
-                  {/* =========================================================================
-              ANIMASI EXPAND / COLLAPSE (Menggunakan CSS Grid Row Hack)
-              ========================================================================= */}
-                  <div className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-                    <div className="overflow-hidden">
-                      {/* Tempat Deskripsi Proker */}
-                      {item.desc && <p className="mt-4 text-sm font-light text-body leading-relaxed bg-surface-soft/50 p-3 border-l-2 border-hairline">{item.desc}</p>}
-
-                      {/* Lokasi dipindah ke dalam collapse agar rapi */}
-                      <p className="mt-3 text-base font-light text-body">
-                        <span className="text-muted">Tempat · </span>
-                        {item.place}
-                      </p>
+                    <div className={`grid transition-[grid-template-rows] duration-300 ease-in-out motion-reduce:transition-none ${isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                      <div className="overflow-hidden">
+                        {item.desc && <p className="mt-4 text-sm font-light text-body leading-relaxed bg-surface-soft/50 p-3 border-l-2 border-hairline">{item.desc}</p>}
+                        <p className="mt-3 text-base font-light text-body">
+                          <span className="text-muted">Tempat · </span>
+                          {item.place}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  {/* ========================================================================= */}
-                </div>
-              </button>
-            </li>
+                </button>
+              </li>
+            </ScrollAnimate>
           );
         })}
       </ol>

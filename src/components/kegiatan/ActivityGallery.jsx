@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ScrollAnimate from "@/components/ui/ScrollAnimate"; // 🎯 Impor komponen ScrollAnimate
 
 /** * DATABASE GALERI KEGIATAN
  * Sudah dilengkapi dengan properti deskripsi dan tanggal riil untuk kebutuhan popup detail.
@@ -41,8 +42,6 @@ export default function ActivityGallery() {
   const totalPages = Math.ceil(GALLERY_ITEMS.length / itemsPerPage);
 
   return (
-    // SOLUSI DESKTOP: Menaikkan padding desktop ke lg:pt-32 (sekitar 128px)
-    // Jarak ini sangat ideal untuk melompati tinggi riil gabungan MStripe + Navbar (80-90px)
     <section aria-labelledby="galeri-heading" className="pt-16 pb-24 lg:pt-32">
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
         <h2 id="galeri-heading" className="text-xl font-bold uppercase tracking-tight text-on-dark lg:text-[32px] lg:leading-[1.15]">
@@ -51,40 +50,36 @@ export default function ActivityGallery() {
 
         {/* LIST GRID FOTO: Jarak antar kartu dibuat proporsional dan rapi */}
         <ul className="mt-12 grid gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
-          {currentItems.map((item) => (
-            <li key={item.id} className="border border-hairline bg-surface-soft">
-              {/* Bingkai foto bertindak sebagai tombol interaktif murni */}
-              <button type="button" onClick={() => setActiveItem(item)} className="group relative block w-full overflow-hidden bg-black aspect-[4/5] text-left focus:outline-none">
-                {/* Image Layer */}
-                <img
-                  src={item.imgSrc}
-                  alt={`Dokumentasi kegiatan: ${item.title}`}
-                  className="h-full w-full scale-100 object-cover brightness-95 contrast-[1.02] transition duration-300 ease-out group-hover:scale-[1.03] group-hover:brightness-90"
-                />
+          {currentItems.map((item, index) => (
+            /* 🎯 Bungkus elemen li dengan ScrollAnimate menggunakan index stagger delay */
+            <ScrollAnimate key={item.id} variant="fadeInUp" delay={index * 0.05} speed={0.4} className="w-full">
+              <li className="border border-hairline bg-surface-soft">
+                {/* Bingkai foto bertindak sebagai tombol interaktif murni */}
+                <button type="button" onClick={() => setActiveItem(item)} className="group relative block w-full overflow-hidden bg-black aspect-[4/5] text-left focus:outline-none">
+                  {/* Image Layer */}
+                  <img
+                    src={item.imgSrc}
+                    alt={`Dokumentasi kegiatan: ${item.title}`}
+                    className="h-full w-full scale-100 object-cover brightness-95 contrast-[1.02] transition duration-300 ease-out group-hover:scale-[1.03] group-hover:brightness-90"
+                  />
 
-                {/* SOLUSI RESPONSIF (INSPECT): 
-                    - Menggunakan items-center (BUKAN items-end) agar teks selalu tegak lurus di tengah visual gambar, baik di layar HP maupun laptop.
-                    - Di mobile/inspect (layar kecil), overlay & teks langsung menyala menetap (opacity-100).
-                    - Di desktop (lg), overlay tersembunyi (lg:opacity-0) dan meluncur anggun saat kursor mendekat (lg:group-hover:opacity-100). */}
-                {/* OVERLAY PANEL: Diperbarui agar tersembunyi di semua layar (opacity-0)
-    dan baru muncul saat di-hover (desktop) ATAU di-focus/di-klik (mobile/inspect) */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100 flex items-center justify-center p-4">
-                  <span className="w-auto text-center translate-y-4 transition-transform duration-300 group-hover:translate-y-0 group-focus:translate-y-0 border border-white bg-white/10 px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-white backdrop-blur-xs lg:hover:bg-white lg:hover:text-black">
-                    Selengkapnya &rarr;
-                  </span>
-                </div>
+                  {/* OVERLAY PANEL */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100 flex items-center justify-center p-4">
+                    <span className="w-auto text-center translate-y-4 transition-transform duration-300 group-hover:translate-y-0 group-focus:translate-y-0 border border-white bg-white/10 px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-white backdrop-blur-xs lg:hover:bg-white lg:hover:text-black">
+                      Selengkapnya &rarr;
+                    </span>
+                  </div>
 
-                {/* Garis Aksen Estetik Khas Himpunan */}
-                <span
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-linear-to-r from-m-blue-light via-m-blue-dark to-m-red opacity-0 translate-y-[2px] transition duration-200 group-hover:translate-y-0 group-hover:opacity-100"
-                  aria-hidden
-                />
-              </button>
-            </li>
+                  {/* Garis Aksen Estetik Khas Himpunan */}
+                  <span
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-linear-to-r from-m-blue-light via-m-blue-dark to-m-red opacity-0 translate-y-[2px] transition duration-200 group-hover:translate-y-0 group-hover:opacity-100"
+                    aria-hidden
+                  />
+                </button>
+              </li>
+            </ScrollAnimate>
           ))}
         </ul>
-
-        {/* CONTROLLER TOMBOL PAGINASI DAN POPUP DI BAWAHNYA TETAP SAMA SEPERTI SEBELUMNYA... */}
 
         {/* CONTROLLER TOMBOL PAGINASI */}
         {totalPages > 1 && (
@@ -122,19 +117,15 @@ export default function ActivityGallery() {
         )}
 
         {/* =========================================================================
-    POPUP / MODAL DETAIL DOKUMENTASI (LAYOUT DUA KOLOM SIDE-BY-SIDE)
-    ========================================================================= */}
+        POPUP / MODAL DETAIL DOKUMENTASI (LAYOUT DUA KOLOM SIDE-BY-SIDE)
+        ========================================================================= */}
         <div
           className={`fixed inset-0 z-[100] flex items-center justify-center p-4 transition-all duration-300 ${
             activeItem ? "opacity-100 pointer-events-auto backdrop-blur-md bg-black/60" : "opacity-0 pointer-events-none backdrop-blur-none bg-black/0"
           }`}
           onClick={() => setActiveItem(null)}
         >
-          <div
-            // Diperlebar menjadi max-w-4xl agar leluasa membagi dua kolom kiri-kanan di desktop
-            className={`w-full max-w-4xl my-auto border border-hairline bg-surface-card p-5 sm:p-6 shadow-2xl transition-transform duration-300 ${activeItem ? "scale-100" : "scale-95"}`}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className={`w-full max-w-4xl my-auto border border-hairline bg-surface-card p-5 sm:p-6 shadow-2xl transition-transform duration-300 ${activeItem ? "scale-100" : "scale-95"}`} onClick={(e) => e.stopPropagation()}>
             {activeItem && (
               <div className="relative">
                 {/* Tombol Silang Absolut di Pojok Kanan Atas */}
@@ -142,20 +133,11 @@ export default function ActivityGallery() {
                   &#x2715;
                 </button>
 
-                {/* CONTEN GRID SPILTER: 1 Kolom di HP, Berubah Jadi 2 Kolom Seimbang di Laptop (md:grid-cols-2) */}
+                {/* CONTEN GRID SPILTER */}
                 <div className="grid gap-6 md:grid-cols-2 items-start">
-                  {/* =========================================================================
-    KOLOM KIRI: FOTO KEGIATAN (RASIO OTOMATIS MENYESUAIKAN ASLI DAN ANTI-DISTORSI)
-    ========================================================================= */}
+                  {/* KOLOM KIRI: FOTO KEGIATAN */}
                   <div className="w-full flex items-center justify-center border border-hairline bg-black/5 dark:bg-black/40 p-2 min-h-[250px] md:min-h-[350px]">
-                    <img
-                      src={activeItem.imgSrc}
-                      alt={`Detail visual: ${activeItem.title}`}
-                      // 1. h-auto & w-full membuat gambar fleksibel melebar sesuai kolom
-                      // 2. max-h-[320px] atau max-h-[380px] mengunci tinggi foto agar tidak kebablasan di layar laptop
-                      // 3. object-contain menjamin 100% bentuk asli foto terjaga tanpa distorsi sedikit pun
-                      className="w-full h-auto max-h-[320px] md:max-h-[380px] object-contain shadow-sm"
-                    />
+                    <img src={activeItem.imgSrc} alt={`Detail visual: ${activeItem.title}`} className="w-full h-auto max-h-[320px] md:max-h-[380px] object-contain shadow-sm" />
                   </div>
 
                   {/* KOLOM KANAN: SELURUH INFO TEKS */}
@@ -192,7 +174,6 @@ export default function ActivityGallery() {
             )}
           </div>
         </div>
-        {/* ========================================================================= */}
       </div>
     </section>
   );

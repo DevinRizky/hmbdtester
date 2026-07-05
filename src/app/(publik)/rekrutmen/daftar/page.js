@@ -2,6 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import ScrollAnimate from "@/components/ui/ScrollAnimate"; // 🎯 Impor komponen ScrollAnimate
 
 const inputBase =
   "w-full rounded-none border border-hairline bg-surface-soft px-4 py-3 text-[15px] font-light leading-relaxed text-on-dark caret-m-blue-dark transition duration-200 outline-none placeholder:text-muted focus-visible:border-transparent focus-visible:bg-surface-soft focus-visible:shadow-[0_0_0_1px_#1c69d4,0_0_28px_rgba(28,105,212,0.35)] disabled:cursor-not-allowed disabled:opacity-80";
@@ -76,21 +77,22 @@ function FormRekrutmenKonten() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border border-hairline bg-surface-soft p-6 lg:p-10" noValidate>
+    // 🎯 Menambahkan lengkungan asimetris khas Kabinet Aradhana pada bodi kartu form
+    <form onSubmit={handleSubmit} className="border border-hairline bg-surface-soft p-6 lg:p-10 rounded-tr-[40px] rounded-bl-[40px] rounded-tl-lg rounded-br-lg transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.03)]" noValidate>
       {sent && (
-        <div role="status" className="mb-8 border border-m-blue-dark/40 bg-canvas px-4 py-3 text-sm font-light text-body-strong">
+        <div role="status" className="mb-8 border border-m-blue-dark/40 bg-canvas px-4 py-3 text-sm font-light text-body-strong rounded-r-md">
           <span className="font-bold text-m-blue-dark uppercase text-[11px] block mb-1">Pendaftaran Berhasil</span>
           Formulir Anda untuk posisi <strong className="font-medium text-on-dark">{posisiDipilih}</strong> telah aman tersimpan.
         </div>
       )}
 
       {errorMessage && (
-        <div role="alert" className="mb-8 border border-m-red/40 bg-canvas px-4 py-3 text-sm font-light text-m-red">
+        <div role="alert" className="mb-8 border border-m-red/40 bg-canvas px-4 py-3 text-sm font-light text-m-red rounded-r-md">
           {errorMessage}
         </div>
       )}
 
-      <div className="mb-8 border-l-2 border-m-blue-dark bg-canvas/60 p-4">
+      <div className="mb-8 border-l-2 border-m-blue-dark bg-canvas/60 p-4 rounded-r-md">
         <span className="block text-[10px] font-bold uppercase tracking-wider text-muted">Kegiatan Utama:</span>
         <span className="text-sm font-medium text-on-dark block mt-1 leading-snug uppercase">{posisiDipilih}</span>
       </div>
@@ -170,7 +172,7 @@ function FormRekrutmenKonten() {
         <button
           type="submit"
           disabled={loading}
-          className="inline-flex h-12 min-w-37 items-center justify-center border border-on-dark bg-transparent px-8 text-[13px] font-bold uppercase tracking-[1.5px] text-on-dark transition duration-200 ease-out hover:border-m-blue-dark hover:bg-on-dark hover:text-canvas hover:shadow-[0_0_36px_rgba(28,105,212,0.45)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex h-12 min-w-37 items-center justify-center rounded-md border border-on-dark bg-transparent px-8 text-[13px] font-bold uppercase tracking-[1.5px] text-on-dark transition duration-200 ease-out hover:border-m-blue-dark hover:bg-on-dark hover:text-canvas hover:shadow-[0_0_36px_rgba(28,105,212,0.45)] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading ? "Mengirim..." : "Kirim Formulir"}
         </button>
@@ -184,14 +186,17 @@ function FormRekrutmenKonten() {
 
 export default function HalamanDaftarRekrutmen() {
   return (
-    <section className="py-section" aria-labelledby="rekrutmen-form-heading">
+    <section className="py-section bg-transparent" aria-labelledby="rekrutmen-form-heading">
       <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-10">
         <h2 id="rekrutmen-form-heading" className="sr-only">
           Form pendaftaran rekrutmen panitia
         </h2>
-        <Suspense fallback={<div className="text-xs text-muted font-light px-4">Memuat formulir pendaftaran...</div>}>
-          <FormRekrutmenKonten />
-        </Suspense>
+        {/* 🎯 Membungkus seluruh alur form dengan animasi masuk fadeInUp tunggal yang elegan */}
+        <ScrollAnimate variant="fadeInUp" speed={0.45}>
+          <Suspense fallback={<div className="text-xs text-muted font-light px-4 py-16 border border-dashed border-hairline bg-surface-soft text-center rounded-lg">Memuat formulir pendaftaran...</div>}>
+            <FormRekrutmenKonten />
+          </Suspense>
+        </ScrollAnimate>
       </div>
     </section>
   );

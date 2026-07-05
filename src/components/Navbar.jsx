@@ -148,7 +148,7 @@ export default function Navbar() {
                     onClick={handleLinkClick}
                     className={`block px-4 py-2.5 text-sm text-body hover:bg-surface-soft hover:text-on-dark transition ${pathname === "/rekrutmen/lainnya" ? "bg-surface-soft text-on-dark font-medium" : ""}`}
                   >
-                    Ekternal
+                    Eksternal
                   </Link>
                 </div>
               )}

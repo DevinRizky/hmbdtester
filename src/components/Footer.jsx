@@ -7,7 +7,7 @@ const MENU = [
   { href: "/berita", label: "Berita" },
   { href: "/insight", label: "Insight" },
   { href: "/rekrutmen/hmbd", label: "Rekrutmen HMBD" },
-  { href: "/rekrutmen/lainnya", label: "Rekrutmen Lainnya" },
+  { href: "/rekrutmen/lainnya", label: "Rekrutmen Eksternal" },
   { href: "/kabinet", label: "Kabinet" },
   { href: "/kegiatan", label: "Kegiatan" },
   { href: "/aspirasi", label: "Aspirasi" },
@@ -113,13 +113,13 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} HMBD Telkom University Purwokerto</span>
 
           <span>
-            Desain & Pengembangan oleh{" "}
+            Didesain & Dikembangkan oleh{" "}
             <a href="https://www.instagram.com/devingentong._/" target="_blank" rel="noopener noreferrer" className="hover:text-primary underline">
               Devin Rizky Danendra
             </a>{" "}
-            &{" "}
+            (Lead) &{" "}
             <a href="https://www.instagram.com/baguzkay_/" target="_blank" rel="noopener noreferrer" className="hover:text-primary underline">
-              Muhamad Bagus Dwi Prabowo
+              Muhamad Bagus Dwi Prabowo (Assisted)
             </a>
           </span>
         </div>

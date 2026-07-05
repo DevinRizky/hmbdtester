@@ -1,5 +1,6 @@
 // src/app/insight/page.js
 import NewsGrid from "@/components/berita/NewsGrid";
+import ScrollAnimate from "@/components/ui/ScrollAnimate"; // 🎯 Impor komponen animasi client
 
 export const metadata = {
   title: "Insight — HMBD Telkom University Purwokerto",
@@ -10,14 +11,16 @@ export default function InsightPage() {
   return (
     <main className="bg-canvas min-h-screen py-24">
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
-        {/* Header Section */}
-        <div className="mb-4 border-b border-hairline pb-6">
-          <span className="text-[11px] font-bold uppercase tracking-[2px] text-m-blue-dark">Media Resmi HMBD</span>
-          <h1 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-on-dark lg:text-[32px]">Research & Education</h1>
-          <p className="mt-2 text-xs font-light text-muted max-w-xl leading-relaxed">Ikuti perkembangan informasi seputar insight edukasi industri digital langsung dari internal prodi.</p>
-        </div>
+        {/* Header Section dengan Animasi Masuk */}
+        <ScrollAnimate variant="fadeInUp">
+          <div className="mb-4 border-b border-hairline pb-6">
+            <span className="text-[11px] font-bold uppercase tracking-[2px] text-m-blue-dark">Media Resmi HMBD</span>
+            <h1 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-on-dark lg:text-[32px]">Research & Education</h1>
+            <p className="mt-2 text-xs font-light text-muted max-w-xl leading-relaxed">Ikuti perkembangan informasi seputar insight edukasi industri digital langsung dari internal prodi.</p>
+          </div>
+        </ScrollAnimate>
 
-        {/* Memanggil file NewsGrid yang sudah kita buat dinamis */}
+        {/* Memanggil file NewsGrid yang di dalamnya sudah terpasang stagger animation */}
         <NewsGrid contentType="insight" />
       </div>
     </main>
