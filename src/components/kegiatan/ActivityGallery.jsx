@@ -11,7 +11,7 @@ const GALLERY_ITEMS = [
     id: "gal-01",
     title: "TEKAD 2025",
     date: "2026-05-23",
-    imgSrc: "/tekad2025.jpg",
+    imgSrc: "/tekad2025.JPG",
     description:
       "Temu Keakraban Bisnis Digital. Acara ini berfungsi sebagai ajang untuk: Membangun keakraban, Membina networking, dan Sarana transisi bagi mahasiswa baru untuk beradaptasi dengan lingkungan kampus sebelum memulai perkuliahan aktif.",
   },
@@ -19,7 +19,7 @@ const GALLERY_ITEMS = [
     id: "gal-02",
     title: "Studi Banding To UPI Tasikmalaya",
     date: "2026-05-30",
-    imgSrc: "/stuban.jpg",
+    imgSrc: "/stuban.JPG",
     description:
       "Melalui kegiatan studi banding bersama DIGNITY UPI Tasikmalaya, HMBD TUP mendapatkan banyak wawasan baru, bertukar ide, serta mempererat tali silaturahmi antarhimpunan. Semoga kolaborasi dan semangat untuk terus berkembang ini dapat terus terjaga di masa mendatang. 🤝📚",
   },
