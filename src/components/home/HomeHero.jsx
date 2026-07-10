@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
-const HERO_IMAGES = ["/intro-pic-primary.jpg", "/gallery-02.jpg", "/gallery-03.jpg"];
+const HERO_IMAGES = ["/assets/intro-pic-primary.webp", "/assets/gallery-02.webp", "/assets/gallery-03.webp"];
 
 const FOREGROUND_NODES = [
   { id: 1, cx: "10%", cy: "20%", r: 3, duration: 10, delay: 0, color: "var(--color-m-blue-light)" },

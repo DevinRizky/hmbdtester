@@ -35,7 +35,7 @@ export default function AdminLoginPage() {
         <div className="max-w-md space-y-6 relative z-10">
           {/* Wadah Logo Bulat — Menggunakan token border-hairline and bg-surface-soft */}
           <div className="mx-auto w-60 h-60 flex items-center justify-center bg-surface-soft rounded-full p-6 border border-hairline shadow-2xl">
-            <img src="/hitam-hmbd.png" alt="Logo HMBD" className="w-full h-full object-contain" />
+            <img src="/assets/hitam-hmbd.webp" alt="Logo HMBD" className="w-full h-full object-contain" />
           </div>
 
           {/* Teks Identitas — Menggunakan warna teks standar beranda */}
@@ -65,8 +65,8 @@ export default function AdminLoginPage() {
           {/* Bagian Atas: Pasangan Dua Logo Penting & Judul */}
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center gap-4 filter drop-shadow-md">
-              <img src="/hitam-hmbd.png" alt="Logo HMBD" className="h-10 w-10 object-contain" />
-              <img src="/hitam-aradhana.png" alt="Logo Kabinet Aradhana" className="h-10 w-10 object-contain" />
+              <img src="/assets/hitam-hmbd.webp" alt="Logo HMBD" className="h-10 w-10 object-contain" />
+              <img src="/assets/hitam-aradhana.webp" alt="Logo Kabinet Aradhana" className="h-10 w-10 object-contain" />
             </div>
 
             <h1 className="text-lg font-black uppercase tracking-widest text-on-dark">LOGIN ADMIN</h1>

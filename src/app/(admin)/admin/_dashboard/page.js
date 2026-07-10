@@ -423,7 +423,7 @@ export default function AdminDashboardPage() {
       <aside className="w-64 border-r border-hairline bg-surface-soft flex flex-col justify-between p-6 select-none sticky top-0 h-screen">
         <div className="space-y-6 overflow-y-auto pr-1">
           <div className="flex items-center gap-3 pb-4 border-b border-hairline">
-            <img src="/assets/logo-hmbd-small.png" alt="Logo HMBD" className="h-8 w-8 object-contain" />
+            <img src="/assets/logo-hmbd-small.webp" alt="Logo HMBD" className="h-8 w-8 object-contain" />
             <div>
               <h2 className="text-xs font-black uppercase tracking-wider text-on-dark">HQ Aradhana</h2>
               <p className="text-[10px] text-muted uppercase tracking-tight">Pusat Kendali Konten</p>
@@ -588,7 +588,7 @@ export default function AdminDashboardPage() {
                         accept="image/*"
                         className="w-full text-xs text-muted file:mr-3 file:py-1 file:px-2.5 file:border file:border-hairline file:bg-canvas file:text-on-dark file:text-[9px] file:font-bold file:uppercase hover:file:bg-surface-soft file:cursor-pointer"
                       />
-                      <span className="text-[10px] font-mono text-muted italic truncate">Bawaan: Nabiel.jpg</span>
+                      <span className="text-[10px] font-mono text-muted italic truncate">Bawaan: Nabiel.webp</span>
                     </div>
                   </div>
                 </div>
@@ -616,7 +616,7 @@ export default function AdminDashboardPage() {
                         accept="image/*"
                         className="w-full text-xs text-muted file:mr-3 file:py-1 file:px-2.5 file:border file:border-hairline file:bg-canvas file:text-on-dark file:text-[9px] file:font-bold file:uppercase hover:file:bg-surface-soft file:cursor-pointer"
                       />
-                      <span className="text-[10px] font-mono text-muted italic truncate">Bawaan: Farrel.jpg</span>
+                      <span className="text-[10px] font-mono text-muted italic truncate">Bawaan: Farrel.webp</span>
                     </div>
                   </div>
                 </div>
@@ -677,7 +677,7 @@ export default function AdminDashboardPage() {
                         accept="image/*"
                         className="w-full text-xs text-muted file:mr-4 file:py-1 file:px-3 file:border file:border-hairline file:bg-canvas file:text-on-dark file:text-[10px] file:font-bold file:uppercase file:tracking-wider hover:file:bg-surface-soft file:cursor-pointer"
                       />
-                      <span className="text-[10px] font-mono text-muted italic truncate">Bawaan: Alfilia.jpeg</span>
+                      <span className="text-[10px] font-mono text-muted italic truncate">Bawaan: Alfilia.webp</span>
                     </div>
                   </div>
                 </div>
@@ -723,7 +723,7 @@ export default function AdminDashboardPage() {
                         accept="image/*"
                         className="w-full text-xs text-muted file:mr-4 file:py-1 file:px-3 file:border file:border-hairline file:bg-canvas file:text-on-dark file:text-[10px] file:font-bold file:uppercase file:tracking-wider hover:file:bg-surface-soft file:cursor-pointer"
                       />
-                      <span className="text-[10px] font-mono text-muted italic truncate">Bawaan: Imam.jpeg</span>
+                      <span className="text-[10px] font-mono text-muted italic truncate">Bawaan: Imam.webp</span>
                     </div>
                   </div>
                 </div>

@@ -62,7 +62,7 @@ export default function VisionMissionOrgSection({ visi, misi, kahim, wakahim }) 
             <ScrollAnimate variant="fadeInUp" delay={0.15}>
               <div className="border border-hairline bg-surface-soft p-4 flex flex-col items-center text-center group rounded-tr-md rounded-bl-md rounded-tl-md rounded-br-md transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_15px_30px_rgba(28,105,212,0.1)] hover:border-m-blue-light/30">
                 <div className="relative aspect-[3/4] w-full max-w-[240px] border border-hairline bg-black overflow-hidden shadow-md rounded-tr-md rounded-bl-md">
-                  <img src={kahim?.foto || "/Nabiel.jpg"} alt="Foto Ketua Himpunan" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" loading="lazy" />
+                  <img src={kahim?.foto || "/assets/Nabiel.webp"} alt="Foto Ketua Himpunan" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" loading="lazy" />
                 </div>
                 <h4 className="mt-4 text-base font-bold uppercase tracking-tight text-on-dark">{kahim?.nama || "Nabiel Syafiq Mujizan A"}</h4>
                 <p className="text-[11px] font-medium uppercase tracking-[1px] text-m-blue-dark dark:text-m-blue-light mt-1">Ketua Himpunan</p>
@@ -73,7 +73,7 @@ export default function VisionMissionOrgSection({ visi, misi, kahim, wakahim }) 
             <ScrollAnimate variant="fadeInUp" delay={0.3}>
               <div className="border border-hairline bg-surface-soft p-4 flex flex-col items-center text-center group rounded-tl-md rounded-br-md rounded-tr-md rounded-bl-md transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_15px_30px_rgba(226,39,24,0.1)] hover:border-m-red/30">
                 <div className="relative aspect-[3/4] w-full max-w-[240px] border border-hairline bg-black overflow-hidden shadow-md rounded-tl-md rounded-br-md">
-                  <img src={wakahim?.foto || "/Farrel.jpg"} alt="Foto Wakil Ketua Himpunan" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" loading="lazy" />
+                  <img src={wakahim?.foto || "/assets/Farrel.webp"} alt="Foto Wakil Ketua Himpunan" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" loading="lazy" />
                 </div>
                 <h4 className="mt-4 text-base font-bold uppercase tracking-tight text-on-dark">{wakahim?.nama || "Ananda Farrel Tyass Shidiq"}</h4>
                 <p className="text-[11px] font-medium uppercase tracking-[1px] text-m-red mt-1">Wakil Ketua Himpunan</p>

@@ -19,7 +19,7 @@ export default function KabinetSection() {
             <div className="lg:col-span-5 flex justify-center w-full">
               {/* Bingkai Video Logo mengikuti bahasa desain lengkung asimetris terbalik */}
               <div className="relative aspect-square w-full max-w-[360px] border border-hairline bg-black p-4 overflow-hidden flex items-center justify-center shadow-md rounded-tl-[40px] rounded-br-[40px] rounded-tr-md rounded-bl-md transition-transform duration-500 hover:scale-[1.02]">
-                <video src="/AnimasiKabinet.mp4" autoPlay loop muted playsInline className="h-full w-full object-contain" />
+                <video src="/assets/AnimasiKabinet.mp4" autoPlay loop muted playsInline className="h-full w-full object-contain" />
               </div>
             </div>
 

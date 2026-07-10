@@ -62,11 +62,11 @@ export default function Navbar() {
         <MStripe />
         <div className="mx-auto flex h-16 max-w-360 items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 lg:px-10">
           <Link href="/" className="group flex min-h-11 min-w-0 shrink items-center gap-2 active:opacity-95 sm:gap-3" onClick={handleLinkClick}>
-            <Image src="/hitam-hmbd.png" alt="Logo HMBD" width={48} height={48} className="h-12 w-12 object-contain block dark:hidden" priority />
-            <Image src="/putih-hmbd.png" alt="Logo HMBD" width={48} height={48} className="h-12 w-12 object-contain hidden dark:block" priority />
+            <Image src="/assets/hitam-hmbd.webp" alt="Logo HMBD" width={48} height={48} className="h-12 w-12 object-contain block dark:hidden" priority />
+            <Image src="/assets/putih-hmbd.webp" alt="Logo HMBD" width={48} height={48} className="h-12 w-12 object-contain hidden dark:block" priority />
 
-            <Image src="/hitam-aradhana.png" alt="Logo Kabinet Aradhana" width={48} height={48} className="hidden h-12 w-12 object-contain sm:block dark:sm:hidden" />
-            <Image src="/putih-aradhana.png" alt="Logo Kabinet Aradhana" width={48} height={48} className="hidden h-12 w-12 object-contain dark:sm:block" />
+            <Image src="/assets/hitam-aradhana.webp" alt="Logo Kabinet Aradhana" width={48} height={48} className="hidden h-12 w-12 object-contain sm:block dark:sm:hidden" />
+            <Image src="/assets/putih-aradhana.webp" alt="Logo Kabinet Aradhana" width={48} height={48} className="hidden h-12 w-12 object-contain dark:sm:block" />
 
             <span className="flex min-w-0 flex-col leading-tight">
               <span className="truncate text-[11px] font-bold uppercase tracking-[1.5px] text-on-dark">HMBD Purwokerto</span>

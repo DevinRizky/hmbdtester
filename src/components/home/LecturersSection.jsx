@@ -8,13 +8,13 @@ export default function LecturersSection({ lecturersData }) {
       name: "Alfilia Hilda Rahmatika, S.M., M.M,CPHRM., CHRBP",
       role: "Gugus Kemahasiswaan",
       nip: "NIP · 25000020-3",
-      imageSrc: "/Alfilia.jpeg",
+      imageSrc: "/assets/Alfilia.webp",
     },
     {
       name: "Imam Adiyana, S.Stat., M.Si",
       role: "Gugus Pengembangan Pembelajaran",
       nip: "NIP · 25920031-3",
-      imageSrc: "/Imam.jpeg",
+      imageSrc: "/assets/Imam.webp",
     },
   ];
 

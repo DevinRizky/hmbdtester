@@ -38,12 +38,12 @@ export default function Footer() {
           <div className="flex flex-col gap-6">
             <div className="flex flex-wrap items-center gap-4">
               {/* LOGO HMBD */}
-              <Image src="/hitam-hmbd.png" alt="Logo HMBD" width={48} height={48} className="h-12 w-12 object-contain block dark:hidden" />
-              <Image src="/putih-hmbd.png" alt="Logo HMBD" width={48} height={48} className="h-12 w-12 object-contain hidden dark:block" />
+              <Image src="/assets/hitam-hmbd.webp" alt="Logo HMBD" width={48} height={48} className="h-12 w-12 object-contain block dark:hidden" />
+              <Image src="/assets/putih-hmbd.webp" alt="Logo HMBD" width={48} height={48} className="h-12 w-12 object-contain hidden dark:block" />
 
               {/* LOGO KABINET ARADHANA */}
-              <Image src="/hitam-aradhana.png" alt="Logo Kabinet Aradhana" width={48} height={48} className="h-12 w-12 object-contain block dark:hidden" />
-              <Image src="/putih-aradhana.png" alt="Logo Kabinet Aradhana" width={48} height={48} className="h-12 w-12 object-contain hidden dark:block" />
+              <Image src="/assets/hitam-aradhana.webp" alt="Logo Kabinet Aradhana" width={48} height={48} className="h-12 w-12 object-contain block dark:hidden" />
+              <Image src="/assets/putih-aradhana.webp" alt="Logo Kabinet Aradhana" width={48} height={48} className="h-12 w-12 object-contain hidden dark:block" />
             </div>
 
             {/* Diubah menjadi <div> untuk menghindari bug text-justify globals.css */}
