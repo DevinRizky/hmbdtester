@@ -6,82 +6,104 @@ import ScrollAnimate from "@/components/ui/ScrollAnimate"; // 🎯 Impor kompone
 
 // DATABASE MACRO REKRUTMEN
 const HMBD_RECRUITMENTS = [
+  // {
+  //   id: "bdv-panitia",
+  //   kategori_rekrutmen: "hmbd",
+  //   title: "Rekrutmen Panitia DIGIFEST 4.0",
+  //   status: "DIBUKA",
+  //   closingDate: "2026-07-24",
+  //   image: "/images/rekrutmen/digifest-panitia.webp",
+  //   googleFormUrl: "https://forms.gle/iEg9QBqaVkJJ4wWp9",
+  //   description: "Mari bergabung menjadi bagian dari sejarah penyambutan mahasiswa baru Bisnis Digital. Dibutuhkan talenta yang tangguh, adaptif, dan siap berkolaborasi dalam struktur pelaksana lingkup prodi.",
+  //   timeline: ["17 Juli – 24 Juli : Open Recruitment", "25 Juli : Seleksi Berkas", "26 Juli : Wawancara", "28 Juli : Pengumuman"],
+  //   requirements: ["Mahasiswa aktif Bisnis Digital angkatan 2024–2025", "Melampirkan CV format ATS"],
+  //   divisions: ["Sekretaris", "Acara", "Humas", "PDD"],
+  //   tags: ["Internal"],
+  // },
+  // {
+  //   id: "bdv-peserta",
+  //   kategori_rekrutmen: "hmbd",
+  //   title: "Rekrutmen Registrasi Peserta BDV 5.0",
+  //   status: "SEGERA",
+  //   closingDate: "2026-06-01",
+  //   image: "/images/rekrutmen/bdv-peserta.webp",
+  //   googleFormUrl: "https://forms.gle/XyZYourGoogleFormBDVPeserta",
+  //   description: "Gerbang awal integrasi mahasiswa baru angkatan 2026 ke dalam ekosistem Program Studi Bisnis Digital.",
+  //   timeline: ["Linimasa menyusul kalender akademik."],
+  //   requirements: ["Mahasiswa Baru S1 Bisnis Digital Angkatan 2026"],
+  //   divisions: ["Peserta Angkatan 2026"],
+  //   tags: ["Internal"],
+  // },
   {
-    id: "bdv-panitia",
+    id: "digi-panitia",
     kategori_rekrutmen: "hmbd",
-    title: "Rekrutmen Panitia BDV 5.0",
+    title: "Rekrutmen Panitia DIGIFEST 4.0",
     status: "DIBUKA",
-    closingDate: "2026-06-03",
-    image: "/images/rekrutmen/bdv-panitia.webp",
-    googleFormUrl: "https://forms.gle/XyZYourGoogleFormBDVPanitia",
-    description: "Mari bergabung menjadi bagian dari sejarah penyambutan mahasiswa baru Bisnis Digital. Dibutuhkan talenta yang tangguh, adaptif, dan siap berkolaborasi dalam struktur pelaksana lingkup prodi.",
-    timeline: ["26 Mei – 03 Juni : Open Recruitment", "04 Juni : Seleksi Berkas", "05 Juni : Wawancara"],
-    requirements: ["Mahasiswa aktif Bisnis Digital angkatan 2024–2025", "Melampirkan CV format ATS"],
-    divisions: ["Sekretaris", "Acara", "Humas", "PDD"],
-    tags: ["Internal"],
-  },
-  {
-    id: "bdv-peserta",
-    kategori_rekrutmen: "hmbd",
-    title: "Rekrutmen Registrasi Peserta BDV 5.0",
-    status: "SEGERA",
-    closingDate: "2026-06-01",
-    image: "/images/rekrutmen/bdv-peserta.webp",
-    googleFormUrl: "https://forms.gle/XyZYourGoogleFormBDVPeserta",
-    description: "Gerbang awal integrasi mahasiswa baru angkatan 2026 ke dalam ekosistem Program Studi Bisnis Digital.",
-    timeline: ["Linimasa menyusul kalender akademik."],
-    requirements: ["Mahasiswa Baru S1 Bisnis Digital Angkatan 2026"],
-    divisions: ["Peserta Angkatan 2026"],
-    tags: ["Internal"],
+    closingDate: "2026-07-24",
+    image: "/assets/logodigifest.png", // ⚡ Diperbarui ke path /assets
+    googleFormUrl: "https://forms.gle/iEg9QBqaVkJJ4wWp9",
+    description:
+      "Hai, Bisdigers! 👋 Momen yang ditunggu akhirnya datang! Jangan lewatkan kesempatan emas ini untuk berkontribusi dalam kepanitian DIGIFEST 4.0! Saatnya kamu jadi bagian dari perjalanan acara DIGIFEST Telkom University Purwokerto! 🚀 Benefit: Sertifikat & poin TAK, pengalaman organisasi seru, relasi luas, serta peningkatan soft & hard skill.",
+    timeline: ["17 Juli – 24 Juli : Open Recruitment", "25 Juli : Seleksi Berkas", "26 Juli : Wawancara", "28 Juli : Pengumuman"],
+    requirements: [
+      "Mahasiswa aktif S1 Bisnis Digital angkatan 2024–2025",
+      "Tidak terlibat pelanggaran disiplin akademik/non-akademik",
+      "Melampirkan CV format ATS",
+      "Melampirkan bukti follow IG @digifestbisdig",
+      "Melampirkan portofolio (Khusus Divisi PDD)",
+    ],
+    divisions: ["Sekretaris II", "Bendahara II", "Acara", "Humas", "Marketing", "Ticketing", "Usdakom", "Sponsor", "Logistik", "PDD", "Keamanan"],
+    tags: ["Internal", "Kepanitiaan"],
+    contactPerson: "Daffa (085974304570)",
   },
 ];
 
 const LAINNYA_RECRUITMENTS = [
-  {
-    id: "ukm-basket",
-    kategori_rekrutmen: "lainnya",
-    title: "Open Recruitment Atlet & Manajer",
-    penyelenggara: "UKM Bola Basket",
-    status: "DIBUKA",
-    closingDate: "2026-06-15",
-    image: "/images/rekrutmen/ukm-basket.webp",
-    googleFormUrl: "https://forms.gle/UkmBasketLink",
-    description: "Mengembangkan minat bakat di bidang olahraga sekaligus membangun jaringan relasi yang luas di tingkat universitas.",
-    timeline: ["01 Juli - 15 Juli : Pendaftaran Olahraga"],
-    requirements: ["Mahasiswa aktif Telkom University Purwokerto", "Sehat jasmani dan rohani"],
-    divisions: ["Atlet", "Official / Tim Manajer"],
-    tags: ["UKM"],
-  },
-  {
-    id: "ukm-futsal",
-    kategori_rekrutmen: "lainnya",
-    title: "Open Recruitment Atlet & Manajer",
-    penyelenggara: "UKM Bola Futsal",
-    status: "DIBUKA",
-    closingDate: "2026-06-15",
-    image: "/images/rekrutmen/ukm-basket.webp",
-    googleFormUrl: "https://forms.gle/UkmBasketLink",
-    description: "Mengembangkan minat bakat di bidang olahraga sekaligus membangun jaringan relasi yang luas di tingkat universitas.",
-    timeline: ["01 Juli - 15 Juli : Pendaftaran Olahraga"],
-    requirements: ["Mahasiswa aktif Telkom University Purwokerto", "Sehat jasmani dan rohani"],
-    divisions: ["Atlet", "Official / Tim Manajer"],
-    tags: ["UKM"],
-  },
-  {
-    id: "ukm-esport",
-    kategori_rekrutmen: "lainnya",
-    title: "Pendaftaran Divisi Game & Media",
-    penyelenggara: "UKM E-Sport Tel-U",
-    status: "DIBUKA",
-    closingDate: "2026-06-20",
-    image: "/images/rekrutmen/ukm-esport.webp",
-    googleFormUrl: "https://forms.gle/UkmEsportLink",
-    description: "Wadah bagi mahasiswa yang ingin serius terjun ke industri e-sport, baik sebagai pro-player maupun tim di balik layar.",
-    timeline: ["Awal Juli : Registrasi Mandiri"],
-    requirements: ["Memiliki komitmen tinggi dalam tim"],
-    divisions: ["Mobile Legends", "Valorant", "Creative Content"],
-    tags: ["UKM"],
-  },
+  // {
+  //   id: "ukm-basket",
+  //   kategori_rekrutmen: "lainnya",
+  //   title: "Open Recruitment Atlet & Manajer",
+  //   penyelenggara: "UKM Bola Basket",
+  //   status: "DIBUKA",
+  //   closingDate: "2026-06-15",
+  //   image: "/images/rekrutmen/ukm-basket.webp",
+  //   googleFormUrl: "https://forms.gle/UkmBasketLink",
+  //   description: "Mengembangkan minat bakat di bidang olahraga sekaligus membangun jaringan relasi yang luas di tingkat universitas.",
+  //   timeline: ["01 Juli - 15 Juli : Pendaftaran Olahraga"],
+  //   requirements: ["Mahasiswa aktif Telkom University Purwokerto", "Sehat jasmani dan rohani"],
+  //   divisions: ["Atlet", "Official / Tim Manajer"],
+  //   tags: ["UKM"],
+  // },
+  // {
+  //   id: "ukm-futsal",
+  //   kategori_rekrutmen: "lainnya",
+  //   title: "Open Recruitment Atlet & Manajer",
+  //   penyelenggara: "UKM Bola Futsal",
+  //   status: "DIBUKA",
+  //   closingDate: "2026-06-15",
+  //   image: "/images/rekrutmen/ukm-basket.webp",
+  //   googleFormUrl: "https://forms.gle/UkmBasketLink",
+  //   description: "Mengembangkan minat bakat di bidang olahraga sekaligus membangun jaringan relasi yang luas di tingkat universitas.",
+  //   timeline: ["01 Juli - 15 Juli : Pendaftaran Olahraga"],
+  //   requirements: ["Mahasiswa aktif Telkom University Purwokerto", "Sehat jasmani dan rohani"],
+  //   divisions: ["Atlet", "Official / Tim Manajer"],
+  //   tags: ["UKM"],
+  // },
+  // {
+  //   id: "ukm-esport",
+  //   kategori_rekrutmen: "lainnya",
+  //   title: "Pendaftaran Divisi Game & Media",
+  //   penyelenggara: "UKM E-Sport Tel-U",
+  //   status: "DIBUKA",
+  //   closingDate: "2026-06-20",
+  //   image: "/images/rekrutmen/ukm-esport.webp",
+  //   googleFormUrl: "https://forms.gle/UkmEsportLink",
+  //   description: "Wadah bagi mahasiswa yang ingin serius terjun ke industri e-sport, baik sebagai pro-player maupun tim di balik layar.",
+  //   timeline: ["Awal Juli : Registrasi Mandiri"],
+  //   requirements: ["Memiliki komitmen tinggi dalam tim"],
+  //   divisions: ["Mobile Legends", "Valorant", "Creative Content"],
+  //   tags: ["UKM"],
+  // },
 ];
 
 function formatIdDateShort(iso) {
@@ -90,6 +112,7 @@ function formatIdDateShort(iso) {
 }
 
 // 🎯 REFAKTOR: Memisahkan Komponen Card Agar Efek Staggered Berjalan Mulus Berbasis Index
+// COMPONENT CARD REKRUTMEN
 function RecruitmentCard({ job, index, imgErrors, handleImageError }) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -125,7 +148,7 @@ function RecruitmentCard({ job, index, imgErrors, handleImageError }) {
           </div>
         </div>
 
-        {/* PENYELENGGARA & JUDUL */}
+        {/* JUDUL */}
         <div className="mt-5 border-b border-hairline pb-3">
           {isEksternal && <span className="block text-[10px] font-bold uppercase tracking-wider text-m-blue-dark mb-0.5">{job.penyelenggara}</span>}
           <h3 className="text-base font-black uppercase tracking-tight text-on-dark">{job.title}</h3>
@@ -143,9 +166,21 @@ function RecruitmentCard({ job, index, imgErrors, handleImageError }) {
             ))}
           </div>
 
-          <div className="grid gap-4 border-t border-hairline pt-4 sm:grid-cols-2 text-[11px]">
+          {/* DIVISI YANG DIBUKA */}
+          <div className="border-t border-hairline pt-3">
+            <span className="block font-bold uppercase tracking-wider text-[9px] text-on-dark mb-1.5">💼 Divisi Yang Dibuka:</span>
+            <div className="flex flex-wrap gap-1">
+              {job.divisions?.map((div) => (
+                <span key={div} className="bg-surface border border-hairline text-on-dark/80 px-2 py-0.5 text-[9px] rounded-sm">
+                  {div}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-4 border-t border-hairline pt-3 sm:grid-cols-2 text-[11px]">
             <div>
-              <span className="block font-bold uppercase tracking-wider text-[9px] text-on-dark mb-1">📌 Linimasa:</span>
+              <span className="block font-bold uppercase tracking-wider text-[9px] text-on-dark mb-1">📅 Linimasa:</span>
               <ul className="space-y-1 font-light text-muted list-none">
                 {job.timeline.map((t, idx) => (
                   <li key={idx} className="pl-3 relative before:absolute before:left-0 before:top-1.5 before:h-1 before:w-1 before:bg-m-blue-dark">
@@ -165,6 +200,12 @@ function RecruitmentCard({ job, index, imgErrors, handleImageError }) {
               </ul>
             </div>
           </div>
+
+          {job.contactPerson && (
+            <div className="border-t border-hairline pt-2 text-[10px] text-muted font-light">
+              📞 Narahubung: <span className="font-medium text-on-dark">{job.contactPerson}</span>
+            </div>
+          )}
         </div>
 
         {/* FOOTER KARTU */}
@@ -203,7 +244,7 @@ export default function RecruitmentList({ kategori = "hmbd" }) {
   const baseFiltered = ALL_RECRUITMENTS.filter((item) => item.kategori_rekrutmen === kategori);
   const filteredByTag = selectedTag === "Semua" ? baseFiltered : baseFiltered.filter((item) => item.tags?.includes(selectedTag));
 
-  const BDV_ITEMS = filteredByTag.filter((item) => item.id.startsWith("bdv-"));
+  // 🎯 PERBAIKAN FILTER: Menangkap item berdasarkan awalan ID yang tepat
   const DIGIFEST_ITEMS = filteredByTag.filter((item) => item.id.startsWith("digi-"));
   const availableTags = ["Semua", "UKM", "Organisasi", "Kepanitiaan", "Komunitas"];
 
@@ -213,7 +254,7 @@ export default function RecruitmentList({ kategori = "hmbd" }) {
 
   return (
     <div className="space-y-12">
-      {/* COMPONENT DROPDOWN FILTER */}
+      {/* DROPDOWN FILTER EKSTERNAL */}
       {kategori === "lainnya" && (
         <ScrollAnimate variant="fadeInUp" delay={0.05}>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between border-b border-hairline pb-8 mb-4 gap-6">
@@ -255,24 +296,13 @@ export default function RecruitmentList({ kategori = "hmbd" }) {
       {/* VIEW KATEGORI HMBD */}
       {kategori === "hmbd" && (
         <div className="space-y-16">
-          {BDV_ITEMS.length > 0 && (
+          {DIGIFEST_ITEMS.length > 0 && (
             <div className="border-t-2 border-m-blue-dark pt-6">
               <ScrollAnimate variant="fadeInUp" delay={0.1}>
-                <h2 className="text-xl font-black uppercase tracking-tight text-on-dark mb-6">I. Bisdig Volution (BDV)</h2>
+                <h2 className="text-xl font-black uppercase tracking-tight text-on-dark mb-6">DIGIFEST 4.0</h2>
               </ScrollAnimate>
               <ul className="grid gap-8 md:grid-cols-2">
-                {BDV_ITEMS.map((job, index) => (
-                  <RecruitmentCard key={job.id} job={job} index={index} imgErrors={imgErrors} handleImageError={handleImageError} />
-                ))}
-              </ul>
-            </div>
-          )}
-          {DIGIFEST_ITEMS.length > 0 && (
-            <div className="border-t-2 border-hairline pt-6">
-              <ScrollAnimate variant="fadeInUp" delay={0.1}>
-                <h2 className="text-xl font-black uppercase tracking-tight text-on-dark/70 mb-6">II. Digital Festival (Digifest)</h2>
-              </ScrollAnimate>
-              <ul className="grid gap-8 md:grid-cols-2">
+                {/* 🎯 PERBAIKAN UTAMA: Menggunakan DIGIFEST_ITEMS secara konsisten */}
                 {DIGIFEST_ITEMS.map((job, index) => (
                   <RecruitmentCard key={job.id} job={job} index={index} imgErrors={imgErrors} handleImageError={handleImageError} />
                 ))}
