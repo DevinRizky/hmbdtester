@@ -37,22 +37,22 @@ const HMBD_RECRUITMENTS = [
   {
     id: "digi-panitia",
     kategori_rekrutmen: "hmbd",
-    title: "Rekrutmen Panitia DIGIFEST 4.0",
+    title: "Rekrutmen Panitia DIGIFEST 4.0 BATCH 2",
     status: "DIBUKA",
-    closingDate: "2026-07-24",
+    closingDate: "2026-10-05",
     image: "/assets/logodigifest.png", // ⚡ Diperbarui ke path /assets
     googleFormUrl: "https://forms.gle/iEg9QBqaVkJJ4wWp9",
     description:
       "Hai, Bisdigers! 👋 Momen yang ditunggu akhirnya datang! Jangan lewatkan kesempatan emas ini untuk berkontribusi dalam kepanitian DIGIFEST 4.0! Saatnya kamu jadi bagian dari perjalanan acara DIGIFEST Telkom University Purwokerto! 🚀 Benefit: Sertifikat & poin TAK, pengalaman organisasi seru, relasi luas, serta peningkatan soft & hard skill.",
-    timeline: ["17 Juli – 24 Juli : Open Recruitment", "25 Juli : Seleksi Berkas", "26 Juli : Wawancara", "28 Juli : Pengumuman"],
+    timeline: ["28 September – 5 Oktober : Open Recruitment", "6 Oktober : Seleksi Berkas", "7 Oktober : Wawancara", "8 Oktober : Pengumuman"],
     requirements: [
-      "Mahasiswa aktif S1 Bisnis Digital angkatan 2024–2025",
+      "Mahasiswa aktif S1 Bisnis Digital angkatan 2026",
       "Tidak terlibat pelanggaran disiplin akademik/non-akademik",
       "Melampirkan CV format ATS",
       "Melampirkan bukti follow IG @digifestbisdig",
       "Melampirkan portofolio (Khusus Divisi PDD)",
     ],
-    divisions: ["Sekretaris II", "Bendahara II", "Acara", "Humas", "Marketing", "Ticketing", "Usdakom", "Sponsor", "Logistik", "PDD", "Keamanan"],
+    divisions: ["Sekretaris II", "Acara", "Humas", "Marketing", "Ticketing", "Usdakom", "Sponsor", "Logistik", "PDD", "Keamanan"],
     tags: ["Internal", "Kepanitiaan"],
     contactPerson: "Daffa (085974304570)",
   },
