@@ -41,7 +41,7 @@ const HMBD_RECRUITMENTS = [
     status: "DIBUKA",
     closingDate: "2026-10-05",
     image: "/assets/logodigifest.png", // ⚡ Diperbarui ke path /assets
-    googleFormUrl: "https://forms.gle/iEg9QBqaVkJJ4wWp9",
+    googleFormUrl: "https://forms.gle/vtm1GsjYRxqiBt1B6",
     description:
       "Hai, Bisdigers! 👋 Momen yang ditunggu akhirnya datang! Jangan lewatkan kesempatan emas ini untuk berkontribusi dalam kepanitian DIGIFEST 4.0! Saatnya kamu jadi bagian dari perjalanan acara DIGIFEST Telkom University Purwokerto! 🚀 Benefit: Sertifikat & poin TAK, pengalaman organisasi seru, relasi luas, serta peningkatan soft & hard skill.",
     timeline: ["28 September – 5 Oktober : Open Recruitment", "6 Oktober : Seleksi Berkas", "7 Oktober : Wawancara", "8 Oktober : Pengumuman"],
